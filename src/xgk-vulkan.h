@@ -138,7 +138,7 @@ void loadVk (HMODULE* hmodule_api) {
 void defineVkGlobalFunctions (HMODULE hmodule_api) {
   vkGetInstanceProcAddr = (PFN_vkGetInstanceProcAddr) GetProcAddress(hmodule_api, "vkGetInstanceProcAddr");
 
-  #define GET_PROC_ADDR(name) name = (PFN_##name) vkGetInstanceProcAddr(NULL, #name)
+  #define GET_PROC_ADDR(name) name = (PFN_##name) vkGetInstanceProcAddr(nullptr, #name)
 
   GET_PROC_ADDR(vkCreateInstance);
   GET_PROC_ADDR(vkEnumerateInstanceLayerProperties);
@@ -261,50 +261,50 @@ void defineVkDeviceFunctions (VkDevice device) {
 
 static inline void initVkAppI (VkApplicationInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-  info->pNext = NULL;
-  info->pApplicationName = NULL;
+  info->pNext = nullptr;
+  info->pApplicationName = nullptr;
   info->applicationVersion = 0;
-  info->pEngineName = NULL;
+  info->pEngineName = nullptr;
   info->engineVersion = 0;
   info->apiVersion = VK_API_VERSION_1_0;
 };
 
 static inline void initVkInstanceCI (VkInstanceCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0;
-  info->pApplicationInfo = NULL;
+  info->pApplicationInfo = nullptr;
   info->enabledLayerCount = 0;
-  info->ppEnabledLayerNames = NULL;
+  info->ppEnabledLayerNames = nullptr;
   info->enabledExtensionCount = 0;
-  info->ppEnabledExtensionNames = NULL;
+  info->ppEnabledExtensionNames = nullptr;
 };
 
 static inline void initVkDeviceCI (VkDeviceCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0;
   info->queueCreateInfoCount = 0;
-  info->pQueueCreateInfos = NULL; // VkDeviceQueueCreateInfo(3)
+  info->pQueueCreateInfos = nullptr; // VkDeviceQueueCreateInfo(3)
   info->enabledLayerCount = 0;
-  info->ppEnabledLayerNames = NULL;
+  info->ppEnabledLayerNames = nullptr;
   info->enabledExtensionCount = 0;
-  info->ppEnabledExtensionNames = NULL;
-  info->pEnabledFeatures = NULL; // VkPhysicalDeviceFeatures(3)
+  info->ppEnabledExtensionNames = nullptr;
+  info->pEnabledFeatures = nullptr; // VkPhysicalDeviceFeatures(3)
 };
 
 static inline void initVkDeviceQueueCI (VkDeviceQueueCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0;
   info->queueFamilyIndex = 0;
   info->queueCount = 0;
-  info->pQueuePriorities = NULL;
+  info->pQueuePriorities = nullptr;
 };
 
 static inline void initVkWin32SurfaceCI (VkWin32SurfaceCreateInfoKHR* info) {
   info->sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0;
   info->hinstance = 0;
   info->hwnd = 0;
@@ -312,9 +312,9 @@ static inline void initVkWin32SurfaceCI (VkWin32SurfaceCreateInfoKHR* info) {
 
 static inline void initVkSwapchainCI (VkSwapchainCreateInfoKHR* info) {
   info->sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkSwapchainCreateFlagsKHR(3), VkSwapchainCreateFlagBitsKHR(3)
-  info->surface = VK_NULL_HANDLE;
+  info->surface = VK_nullptr_HANDLE;
   info->minImageCount = 1;
   info->imageFormat = VK_FORMAT_B8G8R8A8_UNORM; // VkFormat(3)
   info->imageColorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR; // VkColorSpaceKHR(3)
@@ -324,17 +324,17 @@ static inline void initVkSwapchainCI (VkSwapchainCreateInfoKHR* info) {
   info->imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT; // VkImageUsageFlags(3), VkImageUsageFlagBits(3)
   info->imageSharingMode = VK_SHARING_MODE_EXCLUSIVE; // VkSharingMode(3)
   info->queueFamilyIndexCount = 1;
-  info->pQueueFamilyIndices = NULL;
+  info->pQueueFamilyIndices = nullptr;
   info->preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR; // VkSurfaceTransformFlagBitsKHR(3)
   info->compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; // VkCompositeAlphaFlagBitsKHR(3)
   info->presentMode = VK_PRESENT_MODE_FIFO_KHR; // VkPresentModeKHR(3)
   info->clipped = VK_TRUE;
-  info->oldSwapchain = VK_NULL_HANDLE;
+  info->oldSwapchain = VK_nullptr_HANDLE;
 };
 
 static inline void initVkImageCI (VkImageCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkImageCreateFlags(3), VkImageCreateFlagBits(3)
   info->imageType = VK_IMAGE_TYPE_2D; // VkImageType(3)
   info->format = VK_FORMAT_B8G8R8A8_UNORM; // VkFormat(3)
@@ -348,15 +348,15 @@ static inline void initVkImageCI (VkImageCreateInfo* info) {
   info->usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT; // VkImageUsageFlags(3), VkImageUsageFlagBits(3)
   info->sharingMode = VK_SHARING_MODE_EXCLUSIVE; // VkSharingMode(3)
   info->queueFamilyIndexCount = 0;
-  info->pQueueFamilyIndices = NULL;
+  info->pQueueFamilyIndices = nullptr;
   info->initialLayout = VK_IMAGE_LAYOUT_UNDEFINED; // VkImageLayout(3)
 };
 
 static inline void initVkImageViewCI (VkImageViewCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkImageViewCreateFlags(3), VkImageViewCreateFlagBits(3)
-  info->image = VK_NULL_HANDLE;
+  info->image = VK_nullptr_HANDLE;
   info->viewType = VK_IMAGE_VIEW_TYPE_2D; // VkImageViewType(3)
   info->format = VK_FORMAT_B8G8R8A8_UNORM; // VkFormat(3)
   info->components.r = VK_COMPONENT_SWIZZLE_IDENTITY; // VkComponentMapping(3)
@@ -391,13 +391,13 @@ static inline void initVkSubpassDesc (VkSubpassDescription* desc) {
   desc->flags = 0; // VkSubpassDescriptionFlags(3), VkSubpassDescriptionFlagBits(3)
   desc->pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS; // VkPipelineBindPoint(3)
   desc->inputAttachmentCount = 0;
-  desc->pInputAttachments = NULL; // VkAttachmentReference(3)
+  desc->pInputAttachments = nullptr; // VkAttachmentReference(3)
   desc->colorAttachmentCount = 1;
-  desc->pColorAttachments = NULL; // VkAttachmentReference(3)
-  desc->pResolveAttachments = NULL; // // VkAttachmentReference(3)
-  desc->pDepthStencilAttachment = NULL; // VkAttachmentReference(3)
+  desc->pColorAttachments = nullptr; // VkAttachmentReference(3)
+  desc->pResolveAttachments = nullptr; // // VkAttachmentReference(3)
+  desc->pDepthStencilAttachment = nullptr; // VkAttachmentReference(3)
   desc->preserveAttachmentCount = 0;
-  desc->pPreserveAttachments = NULL;
+  desc->pPreserveAttachments = nullptr;
 };
 
 static inline void initVkSubpassDep (VkSubpassDependency* dep) {
@@ -415,20 +415,20 @@ static inline void initVkRenderPassCI (VkRenderPassCreateInfo* info) {
   info->pNext = 0;
   info->flags = 0; // VkRenderPassCreateFlags(3)
   info->attachmentCount = 0;
-  info->pAttachments = NULL; // VkAttachmentDescription(3)
+  info->pAttachments = nullptr; // VkAttachmentDescription(3)
   info->subpassCount = 0;
-  info->pSubpasses = NULL; // VkSubpassDescription(3)
+  info->pSubpasses = nullptr; // VkSubpassDescription(3)
   info->dependencyCount = 0;
-  info->pDependencies = NULL; // VkSubpassDependency(3)
+  info->pDependencies = nullptr; // VkSubpassDependency(3)
 };
 
 static inline void initVkFramebufferCI (VkFramebufferCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0;
-  info->renderPass = VK_NULL_HANDLE;
+  info->renderPass = VK_nullptr_HANDLE;
   info->attachmentCount = 1;
-  info->pAttachments = NULL;
+  info->pAttachments = nullptr;
   info->width = 0;
   info->height = 0;
   info->layers = 1;
@@ -436,7 +436,7 @@ static inline void initVkFramebufferCI (VkFramebufferCreateInfo* info) {
 
 static inline void initVkMemoryAI (VkMemoryAllocateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->allocationSize = 0;
   info->memoryTypeIndex = 0;
 };
@@ -446,15 +446,15 @@ static inline void initVkDescriptorSetLayoutBinding (VkDescriptorSetLayoutBindin
   binding->descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER; // VkDescriptorType(3)
   binding->descriptorCount = 0;
   binding->stageFlags = VK_SHADER_STAGE_VERTEX_BIT; // VkShaderStageFlags(3), VkShaderStageFlagBits(3)
-  binding->pImmutableSamplers = NULL;
+  binding->pImmutableSamplers = nullptr;
 };
 
 static inline void initVkDescriptorSetLayoutCI (VkDescriptorSetLayoutCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkDescriptorSetLayoutCreateFlags(3), VkDescriptorSetLayoutCreateFlagBits(3)
   info->bindingCount = 0;
-  info->pBindings = NULL;
+  info->pBindings = nullptr;
 };
 
 static inline void initVkDescriptorPoolSize (VkDescriptorPoolSize* size) {
@@ -464,57 +464,57 @@ static inline void initVkDescriptorPoolSize (VkDescriptorPoolSize* size) {
 
 static inline void initVkDescriptorPoolCI (VkDescriptorPoolCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkDescriptorPoolCreateFlags(3), VkDescriptorPoolCreateFlagBits(3)
   info->maxSets = 0;
   info->poolSizeCount = 0;
-  info->pPoolSizes = NULL;
+  info->pPoolSizes = nullptr;
 };
 
 static inline void initVkDescriptorSetAI (VkDescriptorSetAllocateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-  info->pNext = NULL;
-  info->descriptorPool = VK_NULL_HANDLE;
+  info->pNext = nullptr;
+  info->descriptorPool = VK_nullptr_HANDLE;
   info->descriptorSetCount = 0;
-  info->pSetLayouts = NULL;
+  info->pSetLayouts = nullptr;
 };
 
 static inline void initVkBufferCI (VkBufferCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkBufferCreateFlags(3), VkBufferCreateFlagBits(3)
   info->size = 0;
   info->usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT; // VkBufferUsageFlags(3), VkBufferUsageFlagBits(3)
   info->sharingMode = VK_SHARING_MODE_EXCLUSIVE; // VkSharingMode(3)
   info->queueFamilyIndexCount = 0;
-  info->pQueueFamilyIndices = NULL;
+  info->pQueueFamilyIndices = nullptr;
 };
 
 static inline void initVkDescriptorBufferI (VkDescriptorBufferInfo* info) {
-  info->buffer = VK_NULL_HANDLE;
+  info->buffer = VK_nullptr_HANDLE;
   info->offset = 0;
   info->range = VK_WHOLE_SIZE;
 };
 
 static inline void initVkWriteDescriptorSet (VkWriteDescriptorSet* write) {
   write->sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-  write->pNext = NULL;
-  write->dstSet = VK_NULL_HANDLE;
+  write->pNext = nullptr;
+  write->dstSet = VK_nullptr_HANDLE;
   write->dstBinding = 0;
   write->dstArrayElement = 0;
   write->descriptorCount = 0;
   write->descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER; // VkDescriptorType(3)
-  write->pImageInfo = NULL;
-  write->pBufferInfo = NULL;
-  write->pTexelBufferView = NULL;
+  write->pImageInfo = nullptr;
+  write->pBufferInfo = nullptr;
+  write->pTexelBufferView = nullptr;
 };
 
 static inline void initVkShaderModuleCI (VkShaderModuleCreateInfo* info) {
   info->sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-  info->pNext = NULL;
+  info->pNext = nullptr;
   info->flags = 0; // VkShaderModuleCreateFlags(3)
   info->codeSize = 0;
-  info->pCode = NULL;
+  info->pCode = nullptr;
 };
 
 
@@ -534,40 +534,37 @@ int getVkMemTypeIndex (VkPhysicalDeviceMemoryProperties* mem_props, VkMemoryRequ
 };
 
 #ifdef DEBUG
-
   #define XGK_ENGINE_CREATE_VK_DEBUG_REPORT_CALLBACKS(instance)\
     initVkDebugReportCallbackCIEXT(&vk_report_info_ci);\
     vk_report_info_ci.pfnCallback = &reportVkInfo;\
-    vkCreateDebugReportCallbackEXT(instance, &vk_report_info_ci, NULL, &vk_report_info);\
+    vkCreateDebugReportCallbackEXT(instance, &vk_report_info_ci, nullptr, &vk_report_info);\
     \
     initVkDebugReportCallbackCIEXT(&vk_report_warn_ci);\
     vk_report_warn_ci.flags = VK_DEBUG_REPORT_WARNING_BIT_EXT;\
     vk_report_warn_ci.pfnCallback = &reportVkWarn;\
-    vkCreateDebugReportCallbackEXT(instance, &vk_report_warn_ci, NULL, &vk_report_warn);\
+    vkCreateDebugReportCallbackEXT(instance, &vk_report_warn_ci, nullptr, &vk_report_warn);\
     \
     initVkDebugReportCallbackCIEXT(&vk_report_perf_ci);\
     vk_report_perf_ci.flags = VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;\
     vk_report_perf_ci.pfnCallback = &reportVkPerf;\
-    vkCreateDebugReportCallbackEXT(instance, &vk_report_perf_ci, NULL, &vk_report_perf);\
+    vkCreateDebugReportCallbackEXT(instance, &vk_report_perf_ci, nullptr, &vk_report_perf);\
     \
     initVkDebugReportCallbackCIEXT(&vk_report_error_ci);\
     vk_report_error_ci.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT;\
     vk_report_error_ci.pfnCallback = &reportVkError;\
-    vkCreateDebugReportCallbackEXT(instance, &vk_report_error_ci, NULL, &vk_report_error);\
+    vkCreateDebugReportCallbackEXT(instance, &vk_report_error_ci, nullptr, &vk_report_error);\
     \
     initVkDebugReportCallbackCIEXT(&vk_report_debug_ci);\
     vk_report_debug_ci.flags = VK_DEBUG_REPORT_DEBUG_BIT_EXT;\
     vk_report_debug_ci.pfnCallback = &reportVkDebug;\
-    vkCreateDebugReportCallbackEXT(instance, &vk_report_debug_ci, NULL, &vk_report_debug);
+    vkCreateDebugReportCallbackEXT(instance, &vk_report_debug_ci, nullptr, &vk_report_debug);
 
   #define XGK_ENGINE_DESTROY_VK_DEBUG_REPORT_CALLBACKS(instance)\
-    vkDestroyDebugReportCallbackEXT(instance, vk_report_debug, NULL);\
-    vkDestroyDebugReportCallbackEXT(instance, vk_report_error, NULL);\
-    vkDestroyDebugReportCallbackEXT(instance, vk_report_perf, NULL);\
-    vkDestroyDebugReportCallbackEXT(instance, vk_report_warn, NULL);\
-    vkDestroyDebugReportCallbackEXT(instance, vk_report_info, NULL);
-
-  #include <stdio.h>
+    vkDestroyDebugReportCallbackEXT(instance, vk_report_debug, nullptr);\
+    vkDestroyDebugReportCallbackEXT(instance, vk_report_error, nullptr);\
+    vkDestroyDebugReportCallbackEXT(instance, vk_report_perf, nullptr);\
+    vkDestroyDebugReportCallbackEXT(instance, vk_report_warn, nullptr);\
+    vkDestroyDebugReportCallbackEXT(instance, vk_report_info, nullptr);
 
   VkDebugReportCallbackCreateInfoEXT
     vk_report_info_ci = { 0 },
@@ -577,11 +574,11 @@ int getVkMemTypeIndex (VkPhysicalDeviceMemoryProperties* mem_props, VkMemoryRequ
     vk_report_debug_ci = { 0 };
 
   VkDebugReportCallbackEXT
-    vk_report_info = VK_NULL_HANDLE,
-    vk_report_warn = VK_NULL_HANDLE,
-    vk_report_perf = VK_NULL_HANDLE,
-    vk_report_error = VK_NULL_HANDLE,
-    vk_report_debug = VK_NULL_HANDLE;
+    vk_report_info = VK_nullptr_HANDLE,
+    vk_report_warn = VK_nullptr_HANDLE,
+    vk_report_perf = VK_nullptr_HANDLE,
+    vk_report_error = VK_nullptr_HANDLE,
+    vk_report_debug = VK_nullptr_HANDLE;
 
   #define DEBUG_REPORT_ARGS \
     VkDebugReportFlagsEXT flags,\
@@ -595,10 +592,10 @@ int getVkMemTypeIndex (VkPhysicalDeviceMemoryProperties* mem_props, VkMemoryRequ
 
   static inline void initVkDebugReportCallbackCIEXT (VkDebugReportCallbackCreateInfoEXT* info) {
     info->sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
-    info->pNext = NULL;
+    info->pNext = nullptr;
     info->flags = VK_DEBUG_REPORT_INFORMATION_BIT_EXT; // VkDebugReportFlagsEXT(3), VkDebugReportFlagBitsEXT(3)
-    info->pfnCallback = NULL;
-    info->pUserData = NULL;
+    info->pfnCallback = nullptr;
+    info->pUserData = nullptr;
   };
 
   static inline VkBool32 reportVkInfo(DEBUG_REPORT_ARGS) {
@@ -627,5 +624,4 @@ int getVkMemTypeIndex (VkPhysicalDeviceMemoryProperties* mem_props, VkMemoryRequ
   };
 
   #undef DEBUG_REPORT_ARGS
-
 #endif
