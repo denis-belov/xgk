@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0095)https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSpecializationInfo.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- saved from url=(0095)https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html -->
+<html lang="en" data-blockbyte-bs-uid="72998"><link type="text/css" id="dark-mode" rel="stylesheet" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.8">
 <title>VkSpecializationInfo(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -722,11 +722,21 @@ p.tableblock.header { color: #6d6e71; }
 
 .literalblock pre, .listingblock pre { background: #eee; }
 
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/901 */
+a code { color: inherit; }
+
+/* Make VUID anchor handles*/
+li > p > a[id^="VUID-"] { visibility: hidden; position: absolute; z-index: 1001; width: 2.2ex; margin-left: -2.2ex; display: block; text-decoration: none !important; text-align: center; font-weight: normal; }
+li > p > a[id^="VUID-"]:before { content: "\00A7"; font-size: 1em; display: block; padding-top: 0em; background: #fff }
+li > p:hover > a[id^="VUID-"], li > p > a[id^="VUID-"]:hover { visibility: visible; }
+li > p > a[id^="VUID-"].link { color: black; text-decoration: none; } /* TODO: not quite sure what these two do */
+li > p > a[id^="VUID-"].link:hover { color: black; }
+
 </style>
 <link rel="stylesheet" href="./VkSpecializationInfo(3)_files/font-awesome.min.css">
 <link rel="stylesheet" href="./VkSpecializationInfo(3)_files/katex.min.css">
-<script src="./VkSpecializationInfo(3)_files/katex.min.js.Без названия"></script>
-<script src="./VkSpecializationInfo(3)_files/auto-render.min.js.Без названия"></script>
+<script src="./VkSpecializationInfo(3)_files/katex.min.js.download"></script>
+<script src="./VkSpecializationInfo(3)_files/auto-render.min.js.download"></script>
     <!-- Use KaTeX to render math once document is loaded, see
          https://github.com/Khan/KaTeX/tree/master/contrib/auto-render -->
 <script>
@@ -743,18 +753,19 @@ p.tableblock.header { color: #6d6e71; }
             }
         );
     });
-</script></head>
+</script><style class="blockbyte-bs-style" data-name="content">body>div#blockbyte-bs-indicator>div{opacity:0;pointer-events:none}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible,body>iframe#blockbyte-bs-overlay.blockbyte-bs-visible{opacity:1;pointer-events:auto}body.blockbyte-bs-noscroll{overflow:hidden !important}body>div#blockbyte-bs-indicator>div{position:absolute;transform:translate3d(-40px, 0, 0);top:0;left:0;width:40px !important;height:100%;background:rgba(0,0,0,0.5);border-radius:0 10px 10px 0;transition:opacity 0.3s, transform 0.3s;z-index:2}body>div#blockbyte-bs-indicator>div>span{-webkit-mask:no-repeat center/32px;-webkit-mask-image:url(chrome-extension://jdbnofccmhefkmjbkkdkfiicjkgofkdh/img/icon-bookmark.svg);background-color:#ffffff;position:absolute;display:block;top:0;left:0;width:100%;height:100%}body>div#blockbyte-bs-indicator[data-pos='right']{left:auto;right:0}body>div#blockbyte-bs-indicator[data-pos='right']>div{transform:translate3d(40px, 0, 0);left:auto;right:0;border-radius:10px 0 0 10px}body>div#blockbyte-bs-indicator.blockbyte-bs-fullHeight>div{border-radius:0}body>div#blockbyte-bs-indicator.blockbyte-bs-hover>div{transform:translate3d(0, 0, 0);opacity:1}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb{height:100% !important;top:0 !important}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div{background:transparent}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div>span{-webkit-mask-position-y:20px}body>iframe#blockbyte-bs-sidebar{width:350px;max-width:none;height:0;z-index:2147483646;background-color:rgba(0,0,0,0.6) !important;border:none;display:block !important;transform:translate3d(-350px, 0, 0);will-change:width, height, opacity, transform;transition:width 0s 0.3s, height 0s 0.3s, opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar[data-pos='right']{left:auto;right:0;transform:translate3d(350px, 0, 0)}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible{width:calc(100% + 350px);height:100%;transform:translate3d(0, 0, 0);transition:opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask{background:none !important}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask:not(.blockbyte-bs-hover){width:calc(350px + 50px)}body>iframe#blockbyte-bs-overlay{width:100%;max-width:none;height:100%;z-index:2147483647;border:none;background:rgba(0,0,0,0.5) !important;transition:opacity 0.3s}
+</style></head>
 <body class="manpage">
 <div id="header">
 <h1>VkSpecializationInfo(3) Manual Page</h1>
-<h2>NAME</h2>
+<h2 id="_name">Name</h2>
 <div class="sectionbody">
 <p>VkSpecializationInfo - Structure specifying specialization info</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification">C Specification</h2>
+<h2 id="_c_specification"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>VkSpecializationInfo</code> structure is defined as:</p>
@@ -772,7 +783,7 @@ p.tableblock.header { color: #6d6e71; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_members">Members</h2>
+<h2 id="_members"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html#_members"></a>Members</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -782,8 +793,8 @@ array.</p>
 </li>
 <li>
 <p><code>pMapEntries</code> is a pointer to an array of
-<code>VkSpecializationMapEntry</code> which maps constant IDs to offsets in
-<code>pData</code>.</p>
+<code>VkSpecializationMapEntry</code> structures which map constant IDs to
+offsets in <code>pData</code>.</p>
 </li>
 <li>
 <p><code>dataSize</code> is the byte size of the <code>pData</code> buffer.</p>
@@ -796,11 +807,11 @@ array.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_description">Description</h2>
+<h2 id="_description"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>pMapEntries</code> points to a structure of type
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSpecializationMapEntry.html">VkSpecializationMapEntry</a>.</p>
+<p><code>pMapEntries</code> is a pointer to a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationMapEntry.html">VkSpecializationMapEntry</a>
+structure.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -827,7 +838,7 @@ than or equal to <code>dataSize</code> minus <code>offset</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkSpecializationInfo-pMapEntries-parameter"></a> If <code>mapEntryCount</code> is not <code>0</code>, <code>pMapEntries</code> <strong class="purple">must</strong> be a valid pointer to an array of <code>mapEntryCount</code> valid <code>VkSpecializationMapEntry</code> structures</p>
+<p><a id="VUID-VkSpecializationInfo-pMapEntries-parameter"></a> If <code>mapEntryCount</code> is not <code>0</code>, <code>pMapEntries</code> <strong class="purple">must</strong> be a valid pointer to an array of <code>mapEntryCount</code> valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationMapEntry.html">VkSpecializationMapEntry</a> structures</p>
 </li>
 <li>
 <p><a id="VUID-VkSpecializationInfo-pData-parameter"></a> If <code>dataSize</code> is not <code>0</code>, <code>pData</code> <strong class="purple">must</strong> be a valid pointer to an array of <code>dataSize</code> bytes</p>
@@ -839,21 +850,18 @@ than or equal to <code>dataSize</code> minus <code>offset</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_see_also">See Also</h2>
+<h2 id="_see_also"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineShaderStageCreateInfo.html">VkPipelineShaderStageCreateInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSpecializationMapEntry.html">VkSpecializationMapEntry</a></p>
+<p><a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html">VkPipelineShaderStageCreateInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationMapEntry.html">VkSpecializationMapEntry</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_document_notes">Document Notes</h2>
+<h2 id="_document_notes"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the Vulkan Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VkSpecializationInfo" class="bare">https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VkSpecializationInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VkSpecializationInfo" target="_blank" rel="noopener">Vulkan Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the Vulkan Specification.
@@ -862,10 +870,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_copyright">Copyright</h2>
+<h2 id="_copyright"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2018 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -874,11 +882,11 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.1.88<br>
-Last updated 2018-10-13 04:41:43 PDT
+Version 1.2.133<br>
+Last updated 2020-02-15 17:33:08 -0800
 </div>
 </div>
 
 
 
-</body></html>
+<iframe id="blockbyte-bs-sidebar" class="notranslate" data-pos="left" src="./VkSpecializationInfo(3)_files/saved_resource.html"></iframe><div id="blockbyte-bs-indicator" class="blockbyte-bs-fullHeight" style="width: 21px; height: 100%; top: 0%;"></div></body></html>

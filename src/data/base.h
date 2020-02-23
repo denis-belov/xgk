@@ -46,7 +46,6 @@ namespace XGK {
   union Vec4 {
     float f32[4];
 
-
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
       __m128 f128;
     #endif 
@@ -54,7 +53,7 @@ namespace XGK {
 
   // alignment ?
   struct Vec4Wrapper {
-    Vec4 () {};
+    Vec4Wrapper () {};
 
     Vec4 data;
 
@@ -75,7 +74,6 @@ namespace XGK {
   union Quat {
     float f32[4];
 
-
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
       __m128 f128;
     #endif 
@@ -83,8 +81,8 @@ namespace XGK {
 
   // alignment ?
   struct QuatWrapper {
-    Quat () {};
-  
+    QuatWrapper () {};
+
     Quat data;
   };
 
@@ -121,20 +119,20 @@ namespace XGK {
       }
     };
 
-    static inline void updateStorages2 (Vec4Wrapper* wrapper_ptr) {
-      uint32_t storage_count = wrapper_ptr->storage_count;
+    // static inline void updateStorages2 (Vec4Wrapper* wrapper_ptr) {
+    //   uint32_t storage_count = wrapper_ptr->storage_count;
 
-      for (uint32_t i = 0; i < storage_count; i++) {
-        UNIFORM_STACK::push(wrapper_ptr->storage_uniform_stack_arr_data[i], wrapper_ptr->storage_uniform_attr_ptr_arr_data[i]);
-      }
-    };
+    //   for (uint32_t i = 0; i < storage_count; i++) {
+    //     UNIFORM_STACK::push(wrapper_ptr->storage_uniform_stack_arr_data[i], wrapper_ptr->storage_uniform_attr_ptr_arr_data[i]);
+    //   }
+    // };
 
-    static inline void updateStorages2_ (Vec4Wrapper* wrapper_ptr) {
-      uint32_t storage_count = wrapper_ptr->storage_count;
+    // static inline void updateStorages2_ (Vec4Wrapper* wrapper_ptr) {
+    //   uint32_t storage_count = wrapper_ptr->storage_count;
 
-      for (uint32_t i = 0; i < storage_count; i++) {
-        UNIFORM_STACK::push(wrapper_ptr->storage_ptr_arr_data[i]);
-      }
-    };
+    //   for (uint32_t i = 0; i < storage_count; i++) {
+    //     UNIFORM_STACK::push(wrapper_ptr->storage_ptr_arr_data[i]);
+    //   }
+    // };
   };
 };

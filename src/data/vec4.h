@@ -94,9 +94,11 @@ namespace XGK {
       v0->f32[3] += v1->f32[3];
     };
 
-    static inline void add128 (Vec4* v0, Vec4* v1) {
-      v0->f128 = _mm_add_ps(v0->f128, v1->f128);
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void add128 (Vec4* v0, Vec4* v1) {
+        v0->f128 = _mm_add_ps(v0->f128, v1->f128);
+      };
+    #endif
 
     static inline void adds32 (Vec4* v, const float s) {
       v->f32[0] += s;
@@ -105,9 +107,11 @@ namespace XGK {
       v->f32[3] += s;
     };
 
-    static inline void adds128 (Vec4* v, const float s) {
-      v->f128 = _mm_add_ps(v->f128, _mm_set1_ps(s));
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void adds128 (Vec4* v, const float s) {
+        v->f128 = _mm_add_ps(v->f128, _mm_set1_ps(s));
+      };
+    #endif
 
     ///////
     ///////
@@ -126,9 +130,11 @@ namespace XGK {
       v0->f32[3] -= v1->f32[3];
     };
 
-    static inline void sub128 (Vec4* v0, Vec4* v1) {
-      v0->f128 = _mm_sub_ps(v0->f128, v1->f128);
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void sub128 (Vec4* v0, Vec4* v1) {
+        v0->f128 = _mm_sub_ps(v0->f128, v1->f128);
+      };
+    #endif
 
     static inline void subs32 (Vec4* v, const float s) {
       v->f32[0] -= s;
@@ -137,9 +143,11 @@ namespace XGK {
       v->f32[3] -= s;
     };
 
-    static inline void subs128 (Vec4* v, const float s) {
-      v->f128 = _mm_sub_ps(v->f128, _mm_set1_ps(s));
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void subs128 (Vec4* v, const float s) {
+        v->f128 = _mm_sub_ps(v->f128, _mm_set1_ps(s));
+      };
+    #endif
 
     ///////
     ///////
@@ -158,9 +166,11 @@ namespace XGK {
       v0->f32[3] *= v1->f32[3];
     };
 
-    static inline void mul128 (Vec4* v0, Vec4* v1) {
-      v0->f128 = _mm_mul_ps(v0->f128, v1->f128);
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void mul128 (Vec4* v0, Vec4* v1) {
+        v0->f128 = _mm_mul_ps(v0->f128, v1->f128);
+      };
+    #endif
 
     static inline void muls32 (Vec4* v, const float s) {
       v->f32[0] *= s;
@@ -169,9 +179,11 @@ namespace XGK {
       v->f32[3] *= s;
     };
 
-    static inline void muls128 (Vec4* v, const float s) {
-      v->f128 = _mm_mul_ps(v->f128, _mm_set1_ps(s));
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void muls128 (Vec4* v, const float s) {
+        v->f128 = _mm_mul_ps(v->f128, _mm_set1_ps(s));
+      };
+    #endif
 
     ///////
     ///////
@@ -190,9 +202,11 @@ namespace XGK {
       v0->f32[3] /= v1->f32[3];
     };
 
-    static inline void div128 (Vec4* v0, Vec4* v1) {
-      v0->f128 = _mm_div_ps(v0->f128, v1->f128);
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void div128 (Vec4* v0, Vec4* v1) {
+        v0->f128 = _mm_div_ps(v0->f128, v1->f128);
+      };
+    #endif
 
     static inline void divs32 (Vec4* v, const float s) {
       v->f32[0] /= s;
@@ -201,9 +215,11 @@ namespace XGK {
       v->f32[3] /= s;
     };
 
-    static inline void divs128 (Vec4* v, const float s) {
-      v->f128 = _mm_div_ps(v->f128, _mm_set1_ps(s));
-    };
+    #ifdef MACRO_DATA_WRAPPERS_SSE
+      static inline void divs128 (Vec4* v, const float s) {
+        v->f128 = _mm_div_ps(v->f128, _mm_set1_ps(s));
+      };
+    #endif
 
     ///////
     ///////

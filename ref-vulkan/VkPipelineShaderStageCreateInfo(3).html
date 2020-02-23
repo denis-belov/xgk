@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0106)https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineShaderStageCreateInfo.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- saved from url=(0106)https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html -->
+<html lang="en" data-blockbyte-bs-uid="22795"><link type="text/css" id="dark-mode" rel="stylesheet" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.8">
 <title>VkPipelineShaderStageCreateInfo(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -722,11 +722,21 @@ p.tableblock.header { color: #6d6e71; }
 
 .literalblock pre, .listingblock pre { background: #eee; }
 
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/901 */
+a code { color: inherit; }
+
+/* Make VUID anchor handles*/
+li > p > a[id^="VUID-"] { visibility: hidden; position: absolute; z-index: 1001; width: 2.2ex; margin-left: -2.2ex; display: block; text-decoration: none !important; text-align: center; font-weight: normal; }
+li > p > a[id^="VUID-"]:before { content: "\00A7"; font-size: 1em; display: block; padding-top: 0em; background: #fff }
+li > p:hover > a[id^="VUID-"], li > p > a[id^="VUID-"]:hover { visibility: visible; }
+li > p > a[id^="VUID-"].link { color: black; text-decoration: none; } /* TODO: not quite sure what these two do */
+li > p > a[id^="VUID-"].link:hover { color: black; }
+
 </style>
 <link rel="stylesheet" href="./VkPipelineShaderStageCreateInfo(3)_files/font-awesome.min.css">
 <link rel="stylesheet" href="./VkPipelineShaderStageCreateInfo(3)_files/katex.min.css">
-<script src="./VkPipelineShaderStageCreateInfo(3)_files/katex.min.js.Без названия"></script>
-<script src="./VkPipelineShaderStageCreateInfo(3)_files/auto-render.min.js.Без названия"></script>
+<script src="./VkPipelineShaderStageCreateInfo(3)_files/katex.min.js.download"></script>
+<script src="./VkPipelineShaderStageCreateInfo(3)_files/auto-render.min.js.download"></script>
     <!-- Use KaTeX to render math once document is loaded, see
          https://github.com/Khan/KaTeX/tree/master/contrib/auto-render -->
 <script>
@@ -743,18 +753,19 @@ p.tableblock.header { color: #6d6e71; }
             }
         );
     });
-</script></head>
+</script><style class="blockbyte-bs-style" data-name="content">body>div#blockbyte-bs-indicator>div{opacity:0;pointer-events:none}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible,body>iframe#blockbyte-bs-overlay.blockbyte-bs-visible{opacity:1;pointer-events:auto}body.blockbyte-bs-noscroll{overflow:hidden !important}body>div#blockbyte-bs-indicator>div{position:absolute;transform:translate3d(-40px, 0, 0);top:0;left:0;width:40px !important;height:100%;background:rgba(0,0,0,0.5);border-radius:0 10px 10px 0;transition:opacity 0.3s, transform 0.3s;z-index:2}body>div#blockbyte-bs-indicator>div>span{-webkit-mask:no-repeat center/32px;-webkit-mask-image:url(chrome-extension://jdbnofccmhefkmjbkkdkfiicjkgofkdh/img/icon-bookmark.svg);background-color:#ffffff;position:absolute;display:block;top:0;left:0;width:100%;height:100%}body>div#blockbyte-bs-indicator[data-pos='right']{left:auto;right:0}body>div#blockbyte-bs-indicator[data-pos='right']>div{transform:translate3d(40px, 0, 0);left:auto;right:0;border-radius:10px 0 0 10px}body>div#blockbyte-bs-indicator.blockbyte-bs-fullHeight>div{border-radius:0}body>div#blockbyte-bs-indicator.blockbyte-bs-hover>div{transform:translate3d(0, 0, 0);opacity:1}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb{height:100% !important;top:0 !important}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div{background:transparent}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div>span{-webkit-mask-position-y:20px}body>iframe#blockbyte-bs-sidebar{width:350px;max-width:none;height:0;z-index:2147483646;background-color:rgba(0,0,0,0.6) !important;border:none;display:block !important;transform:translate3d(-350px, 0, 0);will-change:width, height, opacity, transform;transition:width 0s 0.3s, height 0s 0.3s, opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar[data-pos='right']{left:auto;right:0;transform:translate3d(350px, 0, 0)}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible{width:calc(100% + 350px);height:100%;transform:translate3d(0, 0, 0);transition:opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask{background:none !important}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask:not(.blockbyte-bs-hover){width:calc(350px + 50px)}body>iframe#blockbyte-bs-overlay{width:100%;max-width:none;height:100%;z-index:2147483647;border:none;background:rgba(0,0,0,0.5) !important;transition:opacity 0.3s}
+</style></head>
 <body class="manpage">
 <div id="header">
 <h1>VkPipelineShaderStageCreateInfo(3) Manual Page</h1>
-<h2>NAME</h2>
+<h2 id="_name">Name</h2>
 <div class="sectionbody">
 <p>VkPipelineShaderStageCreateInfo - Structure specifying parameters of a newly created pipeline shader stage</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification">C Specification</h2>
+<h2 id="_c_specification"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>VkPipelineShaderStageCreateInfo</code> structure is defined as:</p>
@@ -775,7 +786,7 @@ p.tableblock.header { color: #6d6e71; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_members">Members</h2>
+<h2 id="_members"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html#_members"></a>Members</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -786,31 +797,33 @@ p.tableblock.header { color: #6d6e71; }
 <p><code>pNext</code> is <code>NULL</code> or a pointer to an extension-specific structure.</p>
 </li>
 <li>
-<p><code>flags</code> is reserved for future use.</p>
+<p><code>flags</code> is a bitmask of <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateFlagBits.html">VkPipelineShaderStageCreateFlagBits</a>
+specifying how the pipeline shader stage will be generated.</p>
 </li>
 <li>
-<p><code>stage</code> is a <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkShaderStageFlagBits.html">VkShaderStageFlagBits</a> value specifying a single
+<p><code>stage</code> is a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderStageFlagBits.html">VkShaderStageFlagBits</a> value specifying a single
 pipeline stage.</p>
 </li>
 <li>
-<p><code>module</code> is a <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkShaderModule.html">VkShaderModule</a> object that contains the shader
-for this stage.</p>
+<p><code>module</code> is a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModule.html">VkShaderModule</a> object containing the shader for
+this stage.</p>
 </li>
 <li>
 <p><code>pName</code> is a pointer to a null-terminated UTF-8 string specifying
 the entry point name of the shader for this stage.</p>
 </li>
 <li>
-<p><code>pSpecializationInfo</code> is a pointer to <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSpecializationInfo.html">VkSpecializationInfo</a>, as
-described in <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#pipelines-specialization-constants">Specialization
-Constants</a>, and <strong class="purple">can</strong> be <code>NULL</code>.</p>
+<p><code>pSpecializationInfo</code> is a pointer to a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html">VkSpecializationInfo</a>
+structure, as described in
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#pipelines-specialization-constants" target="_blank" rel="noopener">Specialization Constants</a>, or
+<code>NULL</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_description">Description</h2>
+<h2 id="_description"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="sidebarblock">
 <div class="content">
@@ -819,25 +832,25 @@ Constants</a>, and <strong class="purple">can</strong> be <code>NULL</code>.</p>
 <ul>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-00704"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-geometryShader">geometry shaders</a> feature is
-not enabled, <code>stage</code> <strong class="purple">must</strong> not be <code>VK_SHADER_STAGE_GEOMETRY_BIT</code></p>
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-geometryShader" target="_blank" rel="noopener">geometry shaders</a> feature is not
+enabled, <code>stage</code> <strong class="purple">must</strong> not be <code>VK_SHADER_STAGE_GEOMETRY_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-00705"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-tessellationShader">tessellation shaders</a>
-feature is not enabled, <code>stage</code> <strong class="purple">must</strong> not be
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-tessellationShader" target="_blank" rel="noopener">tessellation shaders</a> feature is
+not enabled, <code>stage</code> <strong class="purple">must</strong> not be
 <code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code> or
 <code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-02091"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-meshShader">mesh shader</a> feature is not
-enabled, <code>stage</code> <strong class="purple">must</strong> not be <code>VK_SHADER_STAGE_MESH_BIT_NV</code></p>
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-meshShader" target="_blank" rel="noopener">mesh shader</a> feature is not enabled,
+<code>stage</code> <strong class="purple">must</strong> not be <code>VK_SHADER_STAGE_MESH_BIT_NV</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-02092"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-taskShader">task shader</a> feature is not
-enabled, <code>stage</code> <strong class="purple">must</strong> not be <code>VK_SHADER_STAGE_TASK_BIT_NV</code></p>
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-taskShader" target="_blank" rel="noopener">task shader</a> feature is not enabled,
+<code>stage</code> <strong class="purple">must</strong> not be <code>VK_SHADER_STAGE_TASK_BIT_NV</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-00706"></a>
@@ -910,17 +923,16 @@ equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxGeometryShaderInvocations</code></p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-00716"></a>
-If <code>stage</code> is <code>VK_SHADER_STAGE_GEOMETRY_BIT</code>, and the identified
-entry point writes to <code>Layer</code> for any primitive, it <strong class="purple">must</strong> write the
-same value to <code>Layer</code> for all vertices of a given primitive</p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-02596"></a>
+If <code>stage</code> is a vertex processing stage, and the identified entry
+point writes to <code>Layer</code> for any primitive, it <strong class="purple">must</strong> write the same
+value to <code>Layer</code> for all vertices of a given primitive</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-00717"></a>
-If <code>stage</code> is <code>VK_SHADER_STAGE_GEOMETRY_BIT</code>, and the identified
-entry point writes to <code>ViewportIndex</code> for any primitive, it <strong class="purple">must</strong>
-write the same value to <code>ViewportIndex</code> for all vertices of a given
-primitive</p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-02597"></a>
+If <code>stage</code> is a vertex processing stage, and the identified entry
+point writes to <code>ViewportIndex</code> for any primitive, it <strong class="purple">must</strong> write the
+same value to <code>ViewportIndex</code> for all vertices of a given primitive</p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-00718"></a>
@@ -956,6 +968,74 @@ specifies a maximum output primitive count, <code>OutputPrimitivesNV</code>,
 that is greater than <code>0</code> and less than or equal to
 <code>VkPhysicalDeviceMeshShaderPropertiesNV</code>::<code>maxMeshOutputPrimitives</code>.</p>
 </li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-flags-02784"></a>
+If <code>flags</code> has the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT</code>
+flag set, the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-subgroupSizeControl" target="_blank" rel="noopener"><code>subgroupSizeControl</code></a> feature <strong class="purple">must</strong> be enabled.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-flags-02785"></a>
+If <code>flags</code> has the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT</code>
+flag set, the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-computeFullSubgroups" target="_blank" rel="noopener"><code>computeFullSubgroups</code></a> feature <strong class="purple">must</strong> be enabled.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-02754"></a>
+If a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a>
+structure is included in the <code>pNext</code> chain, <code>flags</code> <strong class="purple">must</strong> not
+have the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT</code>
+flag set.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-02755"></a>
+If a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a>
+structure is included in the <code>pNext</code> chain, the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-subgroupSizeControl" target="_blank" rel="noopener"><code>subgroupSizeControl</code></a> feature
+<strong class="purple">must</strong> be enabled, and <code>stage</code> <strong class="purple">must</strong> be a valid bit specified in
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#limits-required-subgroup-size-stages" target="_blank" rel="noopener"><code>requiredSubgroupSizeStages</code></a>.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-02756"></a>
+If a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a>
+structure is included in the <code>pNext</code> chain and <code>stage</code> is
+<code>VK_SHADER_STAGE_COMPUTE_BIT</code>, the local workgroup size of the
+shader <strong class="purple">must</strong> be less than or equal to the product of
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a>::<code>requiredSubgroupSize</code>
+and
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#limits-max-subgroups-per-workgroup" target="_blank" rel="noopener"><code>maxComputeWorkgroupSubgroups</code></a>.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-02757"></a>
+If a <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a>
+structure is included in the <code>pNext</code> chain, and <code>flags</code> has the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT</code>
+flag set, the local workgroup size in the X dimension of the pipeline
+<strong class="purple">must</strong> be a multiple of
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a>::<code>requiredSubgroupSize</code>.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-flags-02758"></a>
+If <code>flags</code> has both the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT</code> and
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT</code>
+flags set, the local workgroup size in the X dimension of the pipeline
+<strong class="purple">must</strong> be a multiple of
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#limits-max-subgroup-size" target="_blank" rel="noopener"><code>maxSubgroupSize</code></a>.</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-flags-02759"></a>
+If <code>flags</code> has the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT</code>
+flag set and <code>flags</code> does not have the
+<code>VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT</code>
+flag set and no
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a> structure
+is included in the <code>pNext</code> chain, the local workgroup size in the X
+dimension of the pipeline <strong class="purple">must</strong> be a multiple of
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#limits-subgroup-size" target="_blank" rel="noopener"><code>subgroupSize</code></a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -969,22 +1049,25 @@ that is greater than <code>0</code> and less than or equal to
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-sType-sType"></a> <code>sType</code> <strong class="purple">must</strong> be <code>VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO</code></p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-pNext"></a> <code>pNext</code> <strong class="purple">must</strong> be <code>NULL</code></p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-pNext"></a> <code>pNext</code> <strong class="purple">must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html">VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT</a></p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-flags-zerobitmask"></a> <code>flags</code> <strong class="purple">must</strong> be <code>0</code></p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-sType-unique"></a> The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong class="purple">must</strong> be unique</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-parameter"></a> <code>stage</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkShaderStageFlagBits.html">VkShaderStageFlagBits</a> value</p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-flags-parameter"></a> <code>flags</code> <strong class="purple">must</strong> be a valid combination of <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateFlagBits.html">VkPipelineShaderStageCreateFlagBits</a> values</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-module-parameter"></a> <code>module</code> <strong class="purple">must</strong> be a valid <code>VkShaderModule</code> handle</p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-parameter"></a> <code>stage</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderStageFlagBits.html">VkShaderStageFlagBits</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-module-parameter"></a> <code>module</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModule.html">VkShaderModule</a> handle</p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-pName-parameter"></a> <code>pName</code> <strong class="purple">must</strong> be a null-terminated UTF-8 string</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-pSpecializationInfo-parameter"></a> If <code>pSpecializationInfo</code> is not <code>NULL</code>, <code>pSpecializationInfo</code> <strong class="purple">must</strong> be a valid pointer to a valid <code>VkSpecializationInfo</code> structure</p>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-pSpecializationInfo-parameter"></a> If <code>pSpecializationInfo</code> is not <code>NULL</code>, <code>pSpecializationInfo</code> <strong class="purple">must</strong> be a valid pointer to a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html">VkSpecializationInfo</a> structure</p>
 </li>
 </ul>
 </div>
@@ -993,21 +1076,18 @@ that is greater than <code>0</code> and less than or equal to
 </div>
 </div>
 <div class="sect1">
-<h2 id="_see_also">See Also</h2>
+<h2 id="_see_also"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkComputePipelineCreateInfo.html">VkComputePipelineCreateInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkGraphicsPipelineCreateInfo.html">VkGraphicsPipelineCreateInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineShaderStageCreateFlags.html">VkPipelineShaderStageCreateFlags</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkRaytracingPipelineCreateInfoNVX.html">VkRaytracingPipelineCreateInfoNVX</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkShaderModule.html">VkShaderModule</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkShaderStageFlagBits.html">VkShaderStageFlagBits</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSpecializationInfo.html">VkSpecializationInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkStructureType.html">VkStructureType</a></p>
+<p><a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComputePipelineCreateInfo.html">VkComputePipelineCreateInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGraphicsPipelineCreateInfo.html">VkGraphicsPipelineCreateInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateFlags.html">VkPipelineShaderStageCreateFlags</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineCreateInfoNV.html">VkRayTracingPipelineCreateInfoNV</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModule.html">VkShaderModule</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderStageFlagBits.html">VkShaderStageFlagBits</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html">VkSpecializationInfo</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStructureType.html">VkStructureType</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_document_notes">Document Notes</h2>
+<h2 id="_document_notes"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the Vulkan Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VkPipelineShaderStageCreateInfo" class="bare">https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VkPipelineShaderStageCreateInfo</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VkPipelineShaderStageCreateInfo" target="_blank" rel="noopener">Vulkan Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the Vulkan Specification.
@@ -1016,10 +1096,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_copyright">Copyright</h2>
+<h2 id="_copyright"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2018 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -1028,11 +1108,11 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.1.88<br>
-Last updated 2018-10-13 04:41:43 PDT
+Version 1.2.133<br>
+Last updated 2020-02-15 17:33:08 -0800
 </div>
 </div>
 
 
 
-</body></html>
+<iframe id="blockbyte-bs-sidebar" class="notranslate" data-pos="left" src="./VkPipelineShaderStageCreateInfo(3)_files/saved_resource.html"></iframe><div id="blockbyte-bs-indicator" class="blockbyte-bs-fullHeight" style="width: 21px; height: 100%; top: 0%;"></div></body></html>

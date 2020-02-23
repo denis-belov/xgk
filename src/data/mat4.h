@@ -1,5 +1,7 @@
 namespace XGK {
+
   namespace MAT4 {
+
     // column-major 4x4 matrix
 
     #if defined(__GNUC__) || defined(__clang__) || defined(__MINGW64__) || defined(__EMSCRIPTEN__)
@@ -51,7 +53,7 @@ namespace XGK {
 
 
 
-    static const float CONST_IDENTITY[16] = {
+    const float CONST_IDENTITY[16] = {
       1.0f, 0.0f, 0.0f, 0.0f,
       0.0f, 1.0f, 0.0f, 0.0f,
       0.0f, 0.0f, 1.0f, 0.0f,
@@ -76,7 +78,8 @@ namespace XGK {
     ///////
     ///////
 
-    static inline void copy (Mat4* m0, Mat4* m1) {
+    inline void copy (Mat4* m0, Mat4* m1) {
+
       memcpy(m0, m1, CONST_FLOAT_SIZE_16);
     };
 
@@ -90,7 +93,8 @@ namespace XGK {
     ////////
     ////////
 
-    static inline void reset (Mat4* m0) {
+    inline void reset (Mat4* m0) {
+
       memcpy(m0, CONST_IDENTITY, CONST_FLOAT_SIZE_16);
     };
 
@@ -112,7 +116,8 @@ namespace XGK {
       const float e2, const float e6, const float e10, const float e14,\
       const float e3, const float e7, const float e11, const float e15
 
-    static inline void set32 (args) {
+    inline void set32 (args) {
+
       SET32(
         m,
 
@@ -124,7 +129,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void set128 (args) {
+      inline void set128 (args) {
+
         SET128(
           m,
 
@@ -137,7 +143,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void set256 (args) {
+      inline void set256 (args) {
+
         SET256(
           m,
 
@@ -164,7 +171,8 @@ namespace XGK {
     #define a m1->f32
     #define b m0->f32
 
-    static inline void premul32 (Mat4* m0, Mat4* m1) {
+    inline void premul32 (Mat4* m0, Mat4* m1) {
+
       set32(
         m0,
 
@@ -179,7 +187,8 @@ namespace XGK {
     #undef a
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void premul128 (Mat4* m0, Mat4* m1) {
+      inline void premul128 (Mat4* m0, Mat4* m1) {
+
         // store column adresses in const Mat4 members to avoid these addition operations?
         register const __m128 a = _mm_load_ps(m0->f32);
         register const __m128 b = _mm_load_ps(m0->f32 + 4);
@@ -209,7 +218,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void premul256 (Mat4* m0, Mat4* m1) {
+      inline void premul256 (Mat4* m0, Mat4* m1) {
+
         const __m256 a = _mm256_dp_ps(m0->f256[0], m1->f256[0], 0xff);
         const __m256 b = _mm256_dp_ps(m0->f256[0], m1->f256[1], 0xff);
         const __m256 c = _mm256_dp_ps(m0->f256[1], m1->f256[0], 0xff);
@@ -247,7 +257,8 @@ namespace XGK {
     #define a m0->f32
     #define b m1->f32
 
-    static inline void postmul32 (Mat4* m0, Mat4* m1) {
+    inline void postmul32 (Mat4* m0, Mat4* m1) {
+
       SET32(
         m0,
 
@@ -264,7 +275,8 @@ namespace XGK {
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
       #define dot(row, col) GET_F32(_mm_dp_ps(rows[row], m0->f128[col], 0xff), 0)
 
-      static inline void postmul128 (Mat4* m0, Mat4* m1) {
+      inline void postmul128 (Mat4* m0, Mat4* m1) {
+
         const __m128 rows[4] = {
           _mm_setr_ps(m1->f32[0], m1->f32[4], m1->f32[8] , m1->f32[12]),
           _mm_setr_ps(m1->f32[1], m1->f32[5], m1->f32[9] , m1->f32[13]),
@@ -286,7 +298,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void postmul256 (Mat4* m0, Mat4* m1) {
+      inline void postmul256 (Mat4* m0, Mat4* m1) {
+
         const __m256 a = _mm256_dp_ps(m1->f256[0], m0->f256[0], 0xff);
         const __m256 b = _mm256_dp_ps(m1->f256[0], m0->f256[1], 0xff);
         const __m256 c = _mm256_dp_ps(m1->f256[1], m0->f256[0], 0xff);
@@ -321,7 +334,8 @@ namespace XGK {
     //////////////////
     //////////////////
 
-    static inline void muls32 (Mat4* m, const float s) {
+    inline void muls32 (Mat4* m, const float s) {
+
       m->f32[0]  *= s; m->f32[1]  *= s; m->f32[2]  *= s; m->f32[3]  *= s;
       m->f32[4]  *= s; m->f32[5]  *= s; m->f32[6]  *= s; m->f32[7]  *= s;
       m->f32[8]  *= s; m->f32[9]  *= s; m->f32[10] *= s; m->f32[11] *= s;
@@ -329,7 +343,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void muls128 (Mat4* m, const float s) {
+      inline void muls128 (Mat4* m, const float s) {
+
         const __m128 s128 = _mm_set1_ps(s);
 
         m->f128[0] = _mm_mul_ps(m->f128[0], s128);
@@ -340,7 +355,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void muls256 (Mat4* m, const float s) {
+      inline void muls256 (Mat4* m, const float s) {
+
         const __m256 s256 = _mm256_set1_ps(s);
 
         m->f256[0] = _mm256_mul_ps(m->f256[0], s256);
@@ -361,7 +377,8 @@ namespace XGK {
     #define a m0->f32
     #define b m0->f128
 
-    static inline void invns32 (Mat4* m0) {
+    inline void invns32 (Mat4* m0) {
+
       SET32(
         m0,
 
@@ -373,7 +390,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void invns128 (Mat4* m0) {
+      inline void invns128 (Mat4* m0) {
+
         SET128(
           m0,
 
@@ -386,7 +404,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void invns256 (Mat4* m0) {
+      inline void invns256 (Mat4* m0) {
+
         SET256(
           m0,
 
@@ -411,7 +430,7 @@ namespace XGK {
     //////////////////////////////
     //////////////////////////////
 
-    static inline void makeProjPersp32 (
+    inline void makeProjPersp32 (
       Mat4* m0,
 
       const float left,
@@ -421,6 +440,7 @@ namespace XGK {
       const float near_,
       const float far_
     ) {
+
       SET32(
         m0,
 
@@ -432,7 +452,7 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void makeProjPersp128 (
+      inline void makeProjPersp128 (
         Mat4* m0,
 
         const float left,
@@ -442,6 +462,7 @@ namespace XGK {
         const float near_,
         const float far_
       ) {
+
         SET128(
           m0,
 
@@ -454,7 +475,7 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void makeProjPersp256 (
+      inline void makeProjPersp256 (
         Mat4* m0,
 
         const float left,
@@ -464,6 +485,7 @@ namespace XGK {
         const float near_,
         const float far_
       ) {
+
         SET256(
           m0,
 
@@ -475,7 +497,7 @@ namespace XGK {
       };
     #endif
 
-    static inline void makeProjPersp32_2 (
+    inline void makeProjPersp32_2 (
       Mat4* m0,
 
       const float fov,
@@ -484,6 +506,7 @@ namespace XGK {
       const float far_,
       const float zoom
     ) {
+
       const float top = near_ * tan(0.017453292f * 0.5f * fov) / zoom;
       const float height = 2.0f * top;
       const float bottom = top - height;
@@ -502,7 +525,7 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void makeProjPersp128_2 (
+      inline void makeProjPersp128_2 (
         Mat4* m0,
 
         const float fov,
@@ -511,6 +534,7 @@ namespace XGK {
         const float far_,
         const float zoom
       ) {
+
         const float top = near_ * tan(0.017453292f * 0.5f * fov) / zoom;
         const float height = 2.0f * top;
         const float bottom = top - height;
@@ -530,7 +554,7 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void makeProjPersp256_2 (
+      inline void makeProjPersp256_2 (
         Mat4* m0,
 
         const float fov,
@@ -539,6 +563,7 @@ namespace XGK {
         const float far_,
         const float zoom
       ) {
+
         const float top = near_ * tan(0.017453292f * 0.5f * fov) / zoom;
         const float height = 2.0f * top;
         const float bottom = top - height;
@@ -567,7 +592,8 @@ namespace XGK {
     ////////////////
     ////////////////
 
-    static inline void makeRot32 (Mat4* m0, Quat* q0) {
+    inline void makeRot32 (Mat4* m0, Quat* q0) {
+
       const float xx = 2.0f * q0->f32[0] * q0->f32[0];
       const float yy = 2.0f * q0->f32[1] * q0->f32[1];
       const float zz = 2.0f * q0->f32[2] * q0->f32[2];
@@ -589,7 +615,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void makeRot128 (Mat4* m0, Quat* q0) {
+      inline void makeRot128 (Mat4* m0, Quat* q0) {
+
         const float xx = 2.0f * q0->f32[0] * q0->f32[0];
         const float yy = 2.0f * q0->f32[1] * q0->f32[1];
         const float zz = 2.0f * q0->f32[2] * q0->f32[2];
@@ -612,7 +639,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void makeRot256 (Mat4* m0, Quat* q0) {
+      inline void makeRot256 (Mat4* m0, Quat* q0) {
+
         const float xx = 2.0f * q0->f32[0] * q0->f32[0];
         const float yy = 2.0f * q0->f32[1] * q0->f32[1];
         const float zz = 2.0f * q0->f32[2] * q0->f32[2];
@@ -634,7 +662,8 @@ namespace XGK {
       };
     #endif
 
-    static inline void makeRotX32 (Mat4* m0, const float angle) {
+    inline void makeRotX32 (Mat4* m0, const float angle) {
+
       const float cos_ = cos(angle);
       const float sin_ = sin(angle);
 
@@ -649,7 +678,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void makeRotX128 (Mat4* m0, const float angle) {
+      inline void makeRotX128 (Mat4* m0, const float angle) {
+
         const float cos_ = cos(angle);
         const float sin_ = sin(angle);
 
@@ -665,7 +695,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void makeRotX256 (Mat4* m0, const float angle) {
+      inline void makeRotX256 (Mat4* m0, const float angle) {
+
         const float cos_ = cos(angle);
         const float sin_ = sin(angle);
 
@@ -690,7 +721,8 @@ namespace XGK {
     ///////////////////
     ///////////////////
 
-    static inline void makeTrans32 (Mat4* m0, Vec4* axis, const float value) {
+    inline void makeTrans32 (Mat4* m0, Vec4* axis, const float value) {
+
       SET32(
         m0,
 
@@ -702,7 +734,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void makeTrans128 (Mat4* m0, Vec4* axis, const float value) {
+      inline void makeTrans128 (Mat4* m0, Vec4* axis, const float value) {
+
         SET128(
           m0,
 
@@ -713,7 +746,8 @@ namespace XGK {
         )
       };
 
-      static inline void makeTrans128_ (Mat4* m0, Vec4* axis, const float value) {
+      inline void makeTrans128_ (Mat4* m0, Vec4* axis, const float value) {
+
         reset(m0);
 
         m0->f128[3] = _mm_mul_ps(axis->f128, _mm_set1_ps(value));
@@ -723,7 +757,7 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void makeTrans256 (Mat4* m0, Vec4* axis, const float value) {
+      inline void makeTrans256 (Mat4* m0, Vec4* axis, const float value) {
         SET256(
           m0,
 
@@ -748,7 +782,8 @@ namespace XGK {
     // There is no way to have common 'set' function pointer, because each of 'set32', 'set128' and 'set256' is different in the arguments number.
     // So, it's preferable to use 'set32' for portability.
 
-    static inline void simd32 () {
+    inline void simd32 () {
+
       premul = premul32;
       postmul = postmul32;
       muls = muls32;
@@ -761,7 +796,8 @@ namespace XGK {
     };
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_SSE
-      static inline void simd128 () {
+      inline void simd128 () {
+
         premul = premul128;
         postmul = postmul128;
         muls = muls128;
@@ -775,7 +811,8 @@ namespace XGK {
     #endif
 
     #ifdef XGK_MACRO_DATA_WRAPPERS_AVX
-      static inline void simd256 () {
+      inline void simd256 () {
+
         premul = premul256;
         postmul = postmul256;
         muls = muls256;
@@ -792,6 +829,7 @@ namespace XGK {
 
     #ifdef DEBUG
       void print (Mat4* m) {
+
         printf("%f %f %f %f\n", m->f32[0], m->f32[4], m->f32[8] , m->f32[12]);
         printf("%f %f %f %f\n", m->f32[1], m->f32[5], m->f32[9] , m->f32[13]);
         printf("%f %f %f %f\n", m->f32[2], m->f32[6], m->f32[10], m->f32[14]);

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0110)https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineColorBlendAttachmentState.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- saved from url=(0110)https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html -->
+<html lang="en" data-blockbyte-bs-uid="56622"><link type="text/css" id="dark-mode" rel="stylesheet" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.8">
 <title>VkPipelineColorBlendAttachmentState(3)</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
@@ -722,11 +722,21 @@ p.tableblock.header { color: #6d6e71; }
 
 .literalblock pre, .listingblock pre { background: #eee; }
 
+/* From https://github.com/KhronosGroup/Vulkan-Docs/pull/901 */
+a code { color: inherit; }
+
+/* Make VUID anchor handles*/
+li > p > a[id^="VUID-"] { visibility: hidden; position: absolute; z-index: 1001; width: 2.2ex; margin-left: -2.2ex; display: block; text-decoration: none !important; text-align: center; font-weight: normal; }
+li > p > a[id^="VUID-"]:before { content: "\00A7"; font-size: 1em; display: block; padding-top: 0em; background: #fff }
+li > p:hover > a[id^="VUID-"], li > p > a[id^="VUID-"]:hover { visibility: visible; }
+li > p > a[id^="VUID-"].link { color: black; text-decoration: none; } /* TODO: not quite sure what these two do */
+li > p > a[id^="VUID-"].link:hover { color: black; }
+
 </style>
 <link rel="stylesheet" href="./VkPipelineColorBlendAttachmentState(3)_files/font-awesome.min.css">
 <link rel="stylesheet" href="./VkPipelineColorBlendAttachmentState(3)_files/katex.min.css">
-<script src="./VkPipelineColorBlendAttachmentState(3)_files/katex.min.js.Без названия"></script>
-<script src="./VkPipelineColorBlendAttachmentState(3)_files/auto-render.min.js.Без названия"></script>
+<script src="./VkPipelineColorBlendAttachmentState(3)_files/katex.min.js.download"></script>
+<script src="./VkPipelineColorBlendAttachmentState(3)_files/auto-render.min.js.download"></script>
     <!-- Use KaTeX to render math once document is loaded, see
          https://github.com/Khan/KaTeX/tree/master/contrib/auto-render -->
 <script>
@@ -743,18 +753,19 @@ p.tableblock.header { color: #6d6e71; }
             }
         );
     });
-</script></head>
+</script><style class="blockbyte-bs-style" data-name="content">body>div#blockbyte-bs-indicator>div{opacity:0;pointer-events:none}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible,body>iframe#blockbyte-bs-overlay.blockbyte-bs-visible{opacity:1;pointer-events:auto}body.blockbyte-bs-noscroll{overflow:hidden !important}body>div#blockbyte-bs-indicator>div{position:absolute;transform:translate3d(-40px, 0, 0);top:0;left:0;width:40px !important;height:100%;background:rgba(0,0,0,0.5);border-radius:0 10px 10px 0;transition:opacity 0.3s, transform 0.3s;z-index:2}body>div#blockbyte-bs-indicator>div>span{-webkit-mask:no-repeat center/32px;-webkit-mask-image:url(chrome-extension://jdbnofccmhefkmjbkkdkfiicjkgofkdh/img/icon-bookmark.svg);background-color:#ffffff;position:absolute;display:block;top:0;left:0;width:100%;height:100%}body>div#blockbyte-bs-indicator[data-pos='right']{left:auto;right:0}body>div#blockbyte-bs-indicator[data-pos='right']>div{transform:translate3d(40px, 0, 0);left:auto;right:0;border-radius:10px 0 0 10px}body>div#blockbyte-bs-indicator.blockbyte-bs-fullHeight>div{border-radius:0}body>div#blockbyte-bs-indicator.blockbyte-bs-hover>div{transform:translate3d(0, 0, 0);opacity:1}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb{height:100% !important;top:0 !important}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div{background:transparent}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div>span{-webkit-mask-position-y:20px}body>iframe#blockbyte-bs-sidebar{width:350px;max-width:none;height:0;z-index:2147483646;background-color:rgba(0,0,0,0.6) !important;border:none;display:block !important;transform:translate3d(-350px, 0, 0);will-change:width, height, opacity, transform;transition:width 0s 0.3s, height 0s 0.3s, opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar[data-pos='right']{left:auto;right:0;transform:translate3d(350px, 0, 0)}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible{width:calc(100% + 350px);height:100%;transform:translate3d(0, 0, 0);transition:opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask{background:none !important}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask:not(.blockbyte-bs-hover){width:calc(350px + 50px)}body>iframe#blockbyte-bs-overlay{width:100%;max-width:none;height:100%;z-index:2147483647;border:none;background:rgba(0,0,0,0.5) !important;transition:opacity 0.3s}
+</style></head>
 <body class="manpage">
 <div id="header">
 <h1>VkPipelineColorBlendAttachmentState(3) Manual Page</h1>
-<h2>NAME</h2>
+<h2 id="_name">Name</h2>
 <div class="sectionbody">
 <p>VkPipelineColorBlendAttachmentState - Structure specifying a pipeline color blend attachment state</p>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_specification">C Specification</h2>
+<h2 id="_c_specification"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html#_c_specification"></a>C Specification</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>VkPipelineColorBlendAttachmentState</code> structure is defined as:</p>
@@ -776,7 +787,7 @@ p.tableblock.header { color: #6d6e71; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_members">Members</h2>
+<h2 id="_members"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html#_members"></a>Members</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -811,9 +822,9 @@ determine the destination factor <span class="eq">D<sub>a</sub></span>.</p>
 alpha values to write to the color attachment.</p>
 </li>
 <li>
-<p><code>colorWriteMask</code> is a bitmask of <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkColorComponentFlagBits.html">VkColorComponentFlagBits</a>
+<p><code>colorWriteMask</code> is a bitmask of <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorComponentFlagBits.html">VkColorComponentFlagBits</a>
 specifying which of the R, G, B, and/or A components are enabled for
-writing, as described for the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#framebuffer-color-write-mask">Color Write
+writing, as described for the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#framebuffer-color-write-mask" target="_blank" rel="noopener">Color Write
 Mask</a>.</p>
 </li>
 </ul>
@@ -821,7 +832,7 @@ Mask</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_description">Description</h2>
+<h2 id="_description"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="sidebarblock">
 <div class="content">
@@ -830,8 +841,8 @@ Mask</a>.</p>
 <ul>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-srcColorBlendFactor-00608"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-dualSrcBlend">dual source blending</a> feature
-is not enabled, <code>srcColorBlendFactor</code> <strong class="purple">must</strong> not be
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-dualSrcBlend" target="_blank" rel="noopener">dual source blending</a> feature is not
+enabled, <code>srcColorBlendFactor</code> <strong class="purple">must</strong> not be
 <code>VK_BLEND_FACTOR_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_SRC1_ALPHA</code>, or
@@ -839,8 +850,8 @@ is not enabled, <code>srcColorBlendFactor</code> <strong class="purple">must</st
 </li>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-dstColorBlendFactor-00609"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-dualSrcBlend">dual source blending</a> feature
-is not enabled, <code>dstColorBlendFactor</code> <strong class="purple">must</strong> not be
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-dualSrcBlend" target="_blank" rel="noopener">dual source blending</a> feature is not
+enabled, <code>dstColorBlendFactor</code> <strong class="purple">must</strong> not be
 <code>VK_BLEND_FACTOR_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_SRC1_ALPHA</code>, or
@@ -848,8 +859,8 @@ is not enabled, <code>dstColorBlendFactor</code> <strong class="purple">must</st
 </li>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-srcAlphaBlendFactor-00610"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-dualSrcBlend">dual source blending</a> feature
-is not enabled, <code>srcAlphaBlendFactor</code> <strong class="purple">must</strong> not be
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-dualSrcBlend" target="_blank" rel="noopener">dual source blending</a> feature is not
+enabled, <code>srcAlphaBlendFactor</code> <strong class="purple">must</strong> not be
 <code>VK_BLEND_FACTOR_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_SRC1_ALPHA</code>, or
@@ -857,8 +868,8 @@ is not enabled, <code>srcAlphaBlendFactor</code> <strong class="purple">must</st
 </li>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-dstAlphaBlendFactor-00611"></a>
-If the <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#features-features-dualSrcBlend">dual source blending</a> feature
-is not enabled, <code>dstAlphaBlendFactor</code> <strong class="purple">must</strong> not be
+If the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#features-dualSrcBlend" target="_blank" rel="noopener">dual source blending</a> feature is not
+enabled, <code>dstAlphaBlendFactor</code> <strong class="purple">must</strong> not be
 <code>VK_BLEND_FACTOR_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR</code>,
 <code>VK_BLEND_FACTOR_SRC1_ALPHA</code>, or
@@ -867,29 +878,29 @@ is not enabled, <code>dstAlphaBlendFactor</code> <strong class="purple">must</st
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-colorBlendOp-01406"></a>
 If either of <code>colorBlendOp</code> or <code>alphaBlendOp</code> is an
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>, then
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#framebuffer-blend-advanced" target="_blank" rel="noopener">advanced blend operation</a>, then
 <code>colorBlendOp</code> <strong class="purple">must</strong> equal <code>alphaBlendOp</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-advancedBlendIndependentBlend-01407"></a>
 If
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::<code>advancedBlendIndependentBlend</code>
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::<code>advancedBlendIndependentBlend</code>
 is <code>VK_FALSE</code> and <code>colorBlendOp</code> is an
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>, then
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#framebuffer-blend-advanced" target="_blank" rel="noopener">advanced blend operation</a>, then
 <code>colorBlendOp</code> <strong class="purple">must</strong> be the same for all attachments.</p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-advancedBlendIndependentBlend-01408"></a>
 If
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::<code>advancedBlendIndependentBlend</code>
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::<code>advancedBlendIndependentBlend</code>
 is <code>VK_FALSE</code> and <code>alphaBlendOp</code> is an
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>, then
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#framebuffer-blend-advanced" target="_blank" rel="noopener">advanced blend operation</a>, then
 <code>alphaBlendOp</code> <strong class="purple">must</strong> be the same for all attachments.</p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-advancedBlendAllOperations-01409"></a>
 If
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::<code>advancedBlendAllOperations</code>
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::<code>advancedBlendAllOperations</code>
 is <code>VK_FALSE</code>, then <code>colorBlendOp</code> <strong class="purple">must</strong> not be
 <code>VK_BLEND_OP_ZERO_EXT</code>, <code>VK_BLEND_OP_SRC_EXT</code>,
 <code>VK_BLEND_OP_DST_EXT</code>, <code>VK_BLEND_OP_SRC_OVER_EXT</code>,
@@ -911,10 +922,10 @@ is <code>VK_FALSE</code>, then <code>colorBlendOp</code> <strong class="purple">
 <li>
 <p><a id="VUID-VkPipelineColorBlendAttachmentState-colorBlendOp-01410"></a>
 If <code>colorBlendOp</code> or <code>alphaBlendOp</code> is an
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>, then
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSubpassDescription.html">VkSubpassDescription</a>::<code>colorAttachmentCount</code> of the subpass
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#framebuffer-blend-advanced" target="_blank" rel="noopener">advanced blend operation</a>, then
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDescription.html">VkSubpassDescription</a>::<code>colorAttachmentCount</code> of the subpass
 this pipeline is compiled against <strong class="purple">must</strong> be less than or equal to
-<a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::advancedBlendMaxColorAttachments</p>
+<a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html">VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT</a>::advancedBlendMaxColorAttachments</p>
 </li>
 </ul>
 </div>
@@ -926,25 +937,25 @@ this pipeline is compiled against <strong class="purple">must</strong> be less t
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-srcColorBlendFactor-parameter"></a> <code>srcColorBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-srcColorBlendFactor-parameter"></a> <code>srcColorBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-dstColorBlendFactor-parameter"></a> <code>dstColorBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-dstColorBlendFactor-parameter"></a> <code>dstColorBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-colorBlendOp-parameter"></a> <code>colorBlendOp</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendOp.html">VkBlendOp</a> value</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-colorBlendOp-parameter"></a> <code>colorBlendOp</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOp.html">VkBlendOp</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-srcAlphaBlendFactor-parameter"></a> <code>srcAlphaBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-srcAlphaBlendFactor-parameter"></a> <code>srcAlphaBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-dstAlphaBlendFactor-parameter"></a> <code>dstAlphaBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-dstAlphaBlendFactor-parameter"></a> <code>dstAlphaBlendFactor</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-alphaBlendOp-parameter"></a> <code>alphaBlendOp</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendOp.html">VkBlendOp</a> value</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-alphaBlendOp-parameter"></a> <code>alphaBlendOp</code> <strong class="purple">must</strong> be a valid <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOp.html">VkBlendOp</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkPipelineColorBlendAttachmentState-colorWriteMask-parameter"></a> <code>colorWriteMask</code> <strong class="purple">must</strong> be a valid combination of <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkColorComponentFlagBits.html">VkColorComponentFlagBits</a> values</p>
+<p><a id="VUID-VkPipelineColorBlendAttachmentState-colorWriteMask-parameter"></a> <code>colorWriteMask</code> <strong class="purple">must</strong> be a valid combination of <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorComponentFlagBits.html">VkColorComponentFlagBits</a> values</p>
 </li>
 </ul>
 </div>
@@ -953,21 +964,18 @@ this pipeline is compiled against <strong class="purple">must</strong> be less t
 </div>
 </div>
 <div class="sect1">
-<h2 id="_see_also">See Also</h2>
+<h2 id="_see_also"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html#_see_also"></a>See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkBlendOp.html">VkBlendOp</a>, <code>VkBool32</code>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkColorComponentFlags.html">VkColorComponentFlags</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineColorBlendStateCreateInfo.html">VkPipelineColorBlendStateCreateInfo</a></p>
+<p><a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html">VkBlendFactor</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOp.html">VkBlendOp</a>, <code>VkBool32</code>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorComponentFlags.html">VkColorComponentFlags</a>, <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendStateCreateInfo.html">VkPipelineColorBlendStateCreateInfo</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_document_notes">Document Notes</h2>
+<h2 id="_document_notes"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html#_document_notes"></a>Document Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For more information, see the Vulkan Specification at URL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VkPipelineColorBlendAttachmentState" class="bare">https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VkPipelineColorBlendAttachmentState</a></p>
+<p>For more information, see the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VkPipelineColorBlendAttachmentState" target="_blank" rel="noopener">Vulkan Specification</a></p>
 </div>
 <div class="paragraph">
 <p>This page is extracted from the Vulkan Specification.
@@ -976,10 +984,10 @@ Fixes and changes should be made to the Specification, not directly.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_copyright">Copyright</h2>
+<h2 id="_copyright"><a class="anchor" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html#_copyright"></a>Copyright</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright (c) 2014-2018 Khronos Group. This work is licensed under a
+<p>Copyright (c) 2014-2020 Khronos Group. This work is licensed under a
 <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons
 Attribution 4.0 International License</a>.</p>
 </div>
@@ -988,11 +996,11 @@ Attribution 4.0 International License</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.1.88<br>
-Last updated 2018-10-13 04:41:42 PDT
+Version 1.2.133<br>
+Last updated 2020-02-15 17:33:08 -0800
 </div>
 </div>
 
 
 
-</body></html>
+<iframe id="blockbyte-bs-sidebar" class="notranslate" data-pos="left" src="./VkPipelineColorBlendAttachmentState(3)_files/saved_resource.html"></iframe><div id="blockbyte-bs-indicator" class="blockbyte-bs-fullHeight" style="width: 21px; height: 100%; top: 0%;"></div></body></html>
