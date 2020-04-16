@@ -1,3 +1,333 @@
+namespace XGK {
+
+  namespace DATA {
+
+    // #pragma pack(push, 16)
+    //   union Vec4 {
+
+    //     float f32[4];
+
+    //     #ifdef XGK_DATA_MACRO_SSE
+    //       __m128 f128;
+    //     #endif
+    //   };
+    // #pragma pack(pop)
+
+
+
+    namespace VEC4 {
+
+      #define F32(item) ((float*) item)
+      #define F128(item) ((__m128*) item)
+
+      #if defined(__GNUC__) || defined(__clang__) || defined(__MINGW64__) || defined(__EMSCRIPTEN__)
+        #define GET_F32(item, index) item[index]
+      #elif defined(_MSC_VER)
+        #define GET_F32(item, index) item.m128_f32[index]
+      #endif
+
+      #define SET32(data, x, y, z, w)\
+        data[0] = x;\
+        data[1] = y;\
+        data[2] = z;\
+        data[3] = w;
+
+      #ifdef XGK_DATA_MACRO_SSE
+        #define SET128(data, x, y, z, w) *data = _mm_setr_ps(x, y, z, w);
+      #endif
+
+
+
+      const float FLOAT_SIZE_4 = sizeof(float) * 4;
+
+
+
+      void (* add) (void*, void*) = nullptr;
+      void (* adds) (void*, const float) = nullptr;
+      void (* sub) (void*, void*) = nullptr;
+      void (* subs) (void*, const float) = nullptr;
+      void (* mul) (void*, void*) = nullptr;
+      void (* muls) (void*, const float) = nullptr;
+      void (* div) (void*, void*) = nullptr;
+      void (* divs) (void*, const float) = nullptr;
+
+
+
+      // COPY
+      ///////
+      ///////
+
+      inline void copy (void* data0, void* data1) {
+
+        memcpy(data0, data1, FLOAT_SIZE_4);
+      };
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // RESET
+      ////////
+      ////////
+
+      inline void reset (void* data) {
+
+        memset(data, 0, FLOAT_SIZE_4);
+      };
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // SET
+      //////
+      //////
+
+      inline void set32 (void* data, const float x, const float y, const float z, const float w) {
+
+        SET32(F32(data), x, y, z, w)
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void set128 (void* data, const float x, const float y, const float z, const float w) {
+
+          SET128(F128(data), x, y, z, w)
+        };
+      #endif
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // ADD
+      //////
+      //////
+
+      inline void add32 (void* data0, void* data1) {
+
+        F32(data0)[0] += F32(data1)[0];
+        F32(data0)[1] += F32(data1)[1];
+        F32(data0)[2] += F32(data1)[2];
+        F32(data0)[3] += F32(data1)[3];
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void add128 (void* data0, void* data1) {
+
+          *F128(data0) = _mm_add_ps(*F128(data0), *F128(data1));
+        };
+      #endif
+
+      inline void adds32 (void* data, const float s) {
+
+        F32(data)[0] += s;
+        F32(data)[1] += s;
+        F32(data)[2] += s;
+        F32(data)[3] += s;
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void adds128 (void* data, const float s) {
+
+          *F128(data) = _mm_add_ps(*F128(data), _mm_set1_ps(s));
+        };
+      #endif
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // SUBTRACT
+      ///////////
+      ///////////
+
+      inline void sub32 (void* data0, void* data1) {
+
+        F32(data0)[0] -= F32(data1)[0];
+        F32(data0)[1] -= F32(data1)[1];
+        F32(data0)[2] -= F32(data1)[2];
+        F32(data0)[3] -= F32(data1)[3];
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void sub128 (void* data0, void* data1) {
+
+          *F128(data0) = _mm_sub_ps(*F128(data0), *F128(data1));
+        };
+      #endif
+
+      inline void subs32 (void* data, const float s) {
+
+        F32(data)[0] -= s;
+        F32(data)[1] -= s;
+        F32(data)[2] -= s;
+        F32(data)[3] -= s;
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void subs128 (void* data, const float s) {
+
+          *F128(data) = _mm_sub_ps(*F128(data), _mm_set1_ps(s));
+        };
+      #endif
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // MULTIPLY
+      ///////////
+      ///////////
+
+      inline void mul32 (void* data0, void* data1) {
+
+        F32(data0)[0] *= F32(data1)[0];
+        F32(data0)[1] *= F32(data1)[1];
+        F32(data0)[2] *= F32(data1)[2];
+        F32(data0)[3] *= F32(data1)[3];
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void mul128 (void* data0, void* data1) {
+
+          *F128(data0) = _mm_mul_ps(*F128(data0), *F128(data1));
+        };
+      #endif
+
+      inline void muls32 (void* data, const float s) {
+
+        F32(data)[0] *= s;
+        F32(data)[1] *= s;
+        F32(data)[2] *= s;
+        F32(data)[3] *= s;
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void muls128 (void* data, const float s) {
+
+          *F128(data) = _mm_mul_ps(*F128(data), _mm_set1_ps(s));
+        };
+      #endif
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // DIVIDE
+      /////////
+      /////////
+
+      inline void div32 (void* data0, void* data1) {
+
+        F32(data0)[0] /= F32(data1)[0];
+        F32(data0)[1] /= F32(data1)[1];
+        F32(data0)[2] /= F32(data1)[2];
+        F32(data0)[3] /= F32(data1)[3];
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void div128 (void* data0, void* data1) {
+
+          *F128(data0) = _mm_div_ps(*F128(data0), *F128(data1));
+        };
+      #endif
+
+      inline void divs32 (void* data, const float s) {
+
+        F32(data)[0] /= s;
+        F32(data)[1] /= s;
+        F32(data)[2] /= s;
+        F32(data)[3] /= s;
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void divs128 (void* data, const float s) {
+
+          *F128(data) = _mm_div_ps(*F128(data), _mm_set1_ps(s));
+        };
+      #endif
+
+      ///////
+      ///////
+      ///////
+
+
+
+      // SIMD
+      ///////
+      ///////
+
+      // There is no way to have common 'set' function pointer, because each of 'set32', 'set128' is different in the arguments number.
+      // So, it's preferable to use 'set32' for portability.
+
+      inline void simd32 () {
+
+        add = add32;
+        adds = adds32;
+        sub = sub32;
+        subs = subs32;
+        mul = mul32;
+        muls = muls32;
+        div = div32;
+        divs = divs32;
+      };
+
+      #ifdef XGK_DATA_MACRO_SSE
+        inline void simd128 () {
+
+          add = add128;
+          adds = adds128;
+          sub = sub128;
+          subs = subs128;
+          mul = mul128;
+          muls = muls128;
+          div = div128;
+          divs = divs128;
+        };
+      #endif
+
+
+
+      #ifdef DEBUG
+        void print (void* data) {
+
+          printf("%f %f %f %f\n", F32(data)[0], F32(data)[1], F32(data)[2], F32(data)[3]);
+        };
+      #endif
+
+
+
+      #ifdef XGK_DATA_MACRO_SSE
+        #undef SET128
+      #endif
+
+      #undef SET32
+      #undef GET_F32
+      #undef F128
+      #undef F32
+
+      /////
+      /////
+      /////
+    };
+  };
+};
+
+
+
+
 struct QuatBase : Vec4Base {
   inline static void (* mulQ_ptr) (
     QuatBase*,
