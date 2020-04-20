@@ -1,7 +1,7 @@
 // These functions can be used with float[4] and __m128 data storages (4-dim vectors, quaternions).
 // Data should be aligned with 16-byte alignment for better performance.
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 
 

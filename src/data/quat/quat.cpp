@@ -1,5 +1,6 @@
-#include <stdint.h>
+#include <cstdint>
 #include <string>
+#include <cmath>
 
 
 
@@ -67,6 +68,24 @@ namespace XGK {
 
         memcpy(data, CONST_IDENT, FLOAT_SIZE_4);
       };
+
+
+
+      float length (void* data) {
+        float* data_f = (float*) data;
+
+        return sqrt((data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]));
+      }
+
+      void normalize (void* data) {
+        float* data_f = (float*) data;
+        const float value = length(data) || 1;
+
+        data_f[0] /= value;
+        data_f[1] /= value;
+        data_f[2] /= value;
+        data_f[3] /= value;
+      }
 
 
 

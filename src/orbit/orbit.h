@@ -1,8 +1,20 @@
+// do the same for gcc, emscripten
+
+#if _WIN32 || _WIN64
+  #if _WIN64
+    #define MEM_ADDR_LENGTH 8
+  #else
+    #define MEM_ADDR_LENGTH 4
+  #endif
+#endif
+
+
+
 namespace XGK {
 
+  struct Object;
   struct Time;
   struct Transition;
-  struct Object;
 
 
 
@@ -13,11 +25,9 @@ namespace XGK {
 
     alignas(16) float proj_mat[16];
 
-    alignas(MEM_ADDR_LENGTH) Time* time;
+    alignas(MEM_ADDR_LENGTH) Object* object;
 
     alignas(MEM_ADDR_LENGTH) Transition* transition;
-
-    alignas(MEM_ADDR_LENGTH) Object* object;
 
     alignas(4) float speed_x;
 
@@ -26,12 +36,15 @@ namespace XGK {
 
 
 
-  namespace ORBIT {
+  #ifndef XGK_NO_INLINE
 
-    inline void init (Orbit*);
-    inline void rotate (Orbit*);
-    inline void test (Orbit*, const float);
-    inline void move (Orbit*, const float, const float);
-    inline void update (Orbit*);
-  };
+    namespace ORBIT {
+
+      inline void init (Orbit*, Object*, Transition*);
+      inline void rotate (Orbit*);
+      inline void test (Orbit*, const float);
+      inline void move (Orbit*, Time*, const float, const float);
+      inline void update (Orbit*);
+    };
+  #endif
 };

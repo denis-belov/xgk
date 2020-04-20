@@ -1,7 +1,7 @@
-DIR=E:/reps/denis-belov/xgk__
+DIR=E:/reps/denis-belov/xgk
 SRC=$(DIR)/src
 BUILD=$(DIR)/build-win-x64
-COMP_ARGS=/c /EHsc /MD /MP999 /O2 /IE:/reps/denis-belov/xgk__/src /DMEM_ADDR_LENGTH=8
+COMP_ARGS=/c /EHsc /MD /MP999 /O2 /IE:/reps/denis-belov/xgk/src /DMEM_ADDR_LENGTH=8 /DXGK_NO_INLINE=1
 
 
 
@@ -17,6 +17,7 @@ $(BUILD)/obj/mat4.obj \
 $(BUILD)/obj/mat4-32.obj \
 $(BUILD)/obj/mat4-128.obj \
 $(BUILD)/obj/object.obj \
+$(BUILD)/obj/time.obj \
 $(BUILD)/obj/orbit.obj
   lib \
   /OUT:$(BUILD)/lib/xgk.lib \
@@ -31,6 +32,7 @@ $(BUILD)/obj/orbit.obj
   $(BUILD)/obj/mat4-32.obj \
   $(BUILD)/obj/mat4-128.obj \
   $(BUILD)/obj/object.obj \
+  $(BUILD)/obj/time.obj \
   $(BUILD)/obj/orbit.obj
 
 
@@ -133,7 +135,7 @@ $(BUILD)/obj/mat4-128.obj : $(SRC)/data/mat4/mat4-128.cpp
 
 
 
-$(BUILD)/obj/object.obj : $(SRC)/object/object.cpp
+$(BUILD)/obj/object.obj : $(SRC)/data/data.h $(SRC)/object/object.h $(SRC)/object/object.cpp
   cl \
   $(SRC)/object/object.cpp \
   $(COMP_ARGS) \
@@ -143,7 +145,17 @@ $(BUILD)/obj/object.obj : $(SRC)/object/object.cpp
 
 
 
-$(BUILD)/obj/orbit.obj : $(SRC)/orbit/orbit.cpp
+$(BUILD)/obj/time.obj : $(SRC)/time/time.h $(SRC)/time/time.cpp
+  cl \
+  $(SRC)/time/time.cpp \
+  $(COMP_ARGS) \
+  /Fo$(BUILD)/obj/time.obj \
+  /FA \
+  /Fa$(BUILD)/masm/time.asm
+
+
+
+$(BUILD)/obj/orbit.obj : $(SRC)/object/object.h $(SRC)/orbit/orbit.h $(SRC)/orbit/orbit.cpp
   cl \
   $(SRC)/orbit/orbit.cpp \
   $(COMP_ARGS) \

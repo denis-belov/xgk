@@ -36,7 +36,7 @@
 
 
 
-#include <stdint.h>
+#include <cstdint>
 #include <cmath>
 #include <immintrin.h>
 

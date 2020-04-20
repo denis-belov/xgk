@@ -1,6 +1,6 @@
 // column-major 4x4 matrix
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 
 
