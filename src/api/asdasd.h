@@ -31,6 +31,7 @@ DECL_PROC(vkGetPhysicalDeviceProperties);
 DECL_PROC(vkGetPhysicalDeviceFeatures);
 DECL_PROC(vkGetPhysicalDeviceQueueFamilyProperties);
 DECL_PROC(vkGetPhysicalDeviceMemoryProperties);
+DECL_PROC(vkGetPhysicalDeviceFormatProperties);
 
 DECL_PROC(vkGetDeviceProcAddr);
 DECL_PROC(vkCreateDevice);
@@ -135,50 +136,50 @@ namespace XGK {
 
     #ifdef DEBUG
       #define MACRO_CREATE_DEBUG_REPORT_CALLBACKS(instance)\
-        initDebugReportCallbackCIEXT(&report_info_ci);\
-        report_info_ci.pfnCallback = &reportInfo;\
-        vkCreateDebugReportCallbackEXT(instance, &report_info_ci, nullptr, &report_info);\
-        \
-        initDebugReportCallbackCIEXT(&report_warn_ci);\
-        report_warn_ci.flags = VK_DEBUG_REPORT_WARNING_BIT_EXT;\
-        report_warn_ci.pfnCallback = &reportWarn;\
-        vkCreateDebugReportCallbackEXT(instance, &report_warn_ci, nullptr, &report_warn);\
-        \
-        initDebugReportCallbackCIEXT(&report_perf_ci);\
-        report_perf_ci.flags = VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;\
-        report_perf_ci.pfnCallback = &reportPerf;\
-        vkCreateDebugReportCallbackEXT(instance, &report_perf_ci, nullptr, &report_perf);\
-        \
         initDebugReportCallbackCIEXT(&report_error_ci);\
         report_error_ci.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT;\
         report_error_ci.pfnCallback = &reportError;\
-        vkCreateDebugReportCallbackEXT(instance, &report_error_ci, nullptr, &report_error);\
-        \
-        initDebugReportCallbackCIEXT(&report_debug_ci);\
-        report_debug_ci.flags = VK_DEBUG_REPORT_DEBUG_BIT_EXT;\
-        report_debug_ci.pfnCallback = &reportDebug;\
-        vkCreateDebugReportCallbackEXT(instance, &report_debug_ci, nullptr, &report_debug);
+        vkCreateDebugReportCallbackEXT(instance, &report_error_ci, nullptr, &report_error);
+        // \
+        // initDebugReportCallbackCIEXT(&report_info_ci);\
+        // report_info_ci.pfnCallback = &reportInfo;\
+        // vkCreateDebugReportCallbackEXT(instance, &report_info_ci, nullptr, &report_info);\
+        // \
+        // initDebugReportCallbackCIEXT(&report_warn_ci);\
+        // report_warn_ci.flags = VK_DEBUG_REPORT_WARNING_BIT_EXT;\
+        // report_warn_ci.pfnCallback = &reportWarn;\
+        // vkCreateDebugReportCallbackEXT(instance, &report_warn_ci, nullptr, &report_warn);\
+        // \
+        // initDebugReportCallbackCIEXT(&report_perf_ci);\
+        // report_perf_ci.flags = VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;\
+        // report_perf_ci.pfnCallback = &reportPerf;\
+        // vkCreateDebugReportCallbackEXT(instance, &report_perf_ci, nullptr, &report_perf);\
+        // \
+        // initDebugReportCallbackCIEXT(&report_debug_ci);\
+        // report_debug_ci.flags = VK_DEBUG_REPORT_DEBUG_BIT_EXT;\
+        // report_debug_ci.pfnCallback = &reportDebug;\
+        // vkCreateDebugReportCallbackEXT(instance, &report_debug_ci, nullptr, &report_debug);
 
       #define MACRO_DESTROY_DEBUG_REPORT_CALLBACKS(instance)\
-        vkDestroyDebugReportCallbackEXT(instance, report_debug, nullptr);\
-        vkDestroyDebugReportCallbackEXT(instance, report_error, nullptr);\
-        vkDestroyDebugReportCallbackEXT(instance, report_perf, nullptr);\
-        vkDestroyDebugReportCallbackEXT(instance, report_warn, nullptr);\
-        vkDestroyDebugReportCallbackEXT(instance, report_info, nullptr);
+        vkDestroyDebugReportCallbackEXT(instance, report_error, nullptr);
+        // vkDestroyDebugReportCallbackEXT(instance, report_debug, nullptr);\
+        // vkDestroyDebugReportCallbackEXT(instance, report_perf, nullptr);\
+        // vkDestroyDebugReportCallbackEXT(instance, report_warn, nullptr);\
+        // vkDestroyDebugReportCallbackEXT(instance, report_info, nullptr);
 
       VkDebugReportCallbackCreateInfoEXT
-        report_info_ci = { 0 },
-        report_warn_ci = { 0 },
-        report_perf_ci = { 0 },
-        report_error_ci = { 0 },
-        report_debug_ci = { 0 };
+        report_error_ci = { 0 };
+        // report_info_ci = { 0 },
+        // report_warn_ci = { 0 },
+        // report_perf_ci = { 0 },
+        // report_debug_ci = { 0 };
 
       VkDebugReportCallbackEXT
-        report_info = VK_NULL_HANDLE,
-        report_warn = VK_NULL_HANDLE,
-        report_perf = VK_NULL_HANDLE,
-        report_error = VK_NULL_HANDLE,
-        report_debug = VK_NULL_HANDLE;
+        report_error = VK_NULL_HANDLE;
+        // report_info = VK_NULL_HANDLE,
+        // report_warn = VK_NULL_HANDLE,
+        // report_perf = VK_NULL_HANDLE,
+        // report_debug = VK_NULL_HANDLE;
 
       #define DEBUG_REPORT_ARGS \
         VkDebugReportFlagsEXT flags,\
@@ -199,27 +200,6 @@ namespace XGK {
         info->pUserData = nullptr;
       };
 
-      VkBool32 reportInfo(DEBUG_REPORT_ARGS) {
-
-        printf("VALIDATION LAYER INFORMATION: %s\n", pMessage);
-
-        return VK_FALSE;
-      };
-
-      VkBool32 reportWarn(DEBUG_REPORT_ARGS) {
-
-        printf("VALIDATION LAYER WARNING: %s\n", pMessage);
-
-        return VK_FALSE;
-      };
-
-      VkBool32 reportPerf(DEBUG_REPORT_ARGS) {
-
-        printf("VALIDATION LAYER PERFORMANCE WARNING: %s\n", pMessage);
-
-        return VK_FALSE;
-      };
-
       VkBool32 reportError(DEBUG_REPORT_ARGS) {
 
         printf("VALIDATION LAYER ERROR: %s\n", pMessage);
@@ -227,96 +207,109 @@ namespace XGK {
         return VK_FALSE;
       };
 
-      VkBool32 reportDebug(DEBUG_REPORT_ARGS) {
+      // VkBool32 reportInfo(DEBUG_REPORT_ARGS) {
 
-        printf("VALIDATION LAYER DEBUG: %s\n", pMessage);
+      //   printf("VALIDATION LAYER INFORMATION: %s\n", pMessage);
 
-        return VK_FALSE;
-      };
+      //   return VK_FALSE;
+      // };
+
+      // VkBool32 reportWarn(DEBUG_REPORT_ARGS) {
+
+      //   printf("VALIDATION LAYER WARNING: %s\n", pMessage);
+
+      //   return VK_FALSE;
+      // };
+
+      // VkBool32 reportPerf(DEBUG_REPORT_ARGS) {
+
+      //   printf("VALIDATION LAYER PERFORMANCE WARNING: %s\n", pMessage);
+
+      //   return VK_FALSE;
+      // };
+
+      // VkBool32 reportDebug(DEBUG_REPORT_ARGS) {
+
+      //   printf("VALIDATION LAYER DEBUG: %s\n", pMessage);
+
+      //   return VK_FALSE;
+      // };
 
       #undef DEBUG_REPORT_ARGS
     #endif
 
 
 
-    struct Context {
+    // struct Context {
 
-      HMODULE hmodule_api;
-      uint32_t count;
-      GLFWwindow* window;
-      std::vector<const char*> instance_layers;
-      std::vector<const char*> instance_extensions;
-      VkApplicationInfo app_i;
-      VkInstanceCreateInfo instance_ci;
-      VkInstance instance;
-      VkPhysicalDevice* physical_devices;
-      VkQueueFamilyProperties* queue_family_props;
-      VkWin32SurfaceCreateInfoKHR win32_surface_ci;
-      VkSurfaceKHR surface;
-      VkPhysicalDeviceMemoryProperties mem_props;
-      VkBool32 surface_support;
-      VkSurfaceCapabilitiesKHR surface_capabilities;
-      VkSurfaceFormatKHR* surface_formats;
-      std::vector<float> queue_priorities;
-      VkDeviceQueueCreateInfo device_queue_ci;
-      std::vector<const char*> device_extensions;
-      VkDeviceCreateInfo device_ci;
-      VkDevice device;
-      VkQueue graphics_queue;
-      VkQueue present_queue;
-      VkSwapchainCreateInfoKHR swapchain_ci;
-      VkSwapchainKHR swapchain;
-      VkImage* swapchain_images;
-      uint32_t swapchain_image_count;
-      VkImageViewCreateInfo* swapchain_image_view_ci;
-      VkImageView* swapchain_image_views;
-      VkAttachmentDescription
-        color_attachment,
-        color_attachment_resolve;
-      VkAttachmentReference
-        color_attachment_reference,
-        color_attachment_resolve_reference;
-      VkSubpassDescription subpass;
-      VkSubpassDependency subpass_dependency;
-      VkAttachmentDescription render_pass_attachments[2];
-      VkRenderPassCreateInfo render_pass_ci;
-      VkRenderPass render_pass;
-      VkImageCreateInfo* image_ci;
-      VkImage* images;
-      VkDeviceMemory* image_mem;
-      VkImageViewCreateInfo* image_view_ci;
-      VkImageView* image_views;
-      VkFramebufferCreateInfo* framebuffer_ci;
-      VkFramebuffer* framebuffers;
-      VkImageView* framebuffer_attachments;
-      VkMemoryRequirements mem_reqs;
-      uint32_t mem_type_index;
-      VkMemoryAllocateInfo image_mem_ai;
+    //   HMODULE hmodule_api;
 
-      VkViewport viewport;
-      VkRect2D scissor;
-      VkPipelineColorBlendAttachmentState color_blend_attachment_state;
+    //   uint32_t count;
 
-      VkPipelineVertexInputStateCreateInfo default_pipeline_vertex_input_state_ci;
-      VkPipelineInputAssemblyStateCreateInfo default_pipeline_input_assembly_state_ci;
-      VkPipelineTessellationStateCreateInfo default_pipeline_tesselation_state_ci;
-      VkPipelineViewportStateCreateInfo default_pipeline_viewport_state_ci;
-      VkPipelineRasterizationStateCreateInfo default_pipeline_rasterization_state_ci;
-      VkPipelineMultisampleStateCreateInfo default_pipeline_multisample_state_ci;
-      VkPipelineDepthStencilStateCreateInfo default_pipeline_depth_stencil_state_ci;
-      VkPipelineColorBlendStateCreateInfo default_pipeline_color_blend_state_ci;
-      VkPipelineDynamicStateCreateInfo default_pipeline_dynamic_state_ci;
+    //   std::vector<const char*> instance_layers;
+    //   std::vector<const char*> instance_extensions;
+    //   VkInstance instance;
 
-      VkFenceCreateInfo fence_ci;
-      VkFence* fences;
-      VkSemaphoreCreateInfo semaphore_ci;
-      VkSemaphore* image_available_semaphores;
-      VkSemaphore* render_finished_semaphores;
+    //   VkPhysicalDevice* physical_devices;
+    //   VkQueueFamilyProperties* queue_family_props;
+    //   VkPhysicalDeviceMemoryProperties mem_props;
+    //   std::vector<float> queue_priorities;
 
-      uint32_t* image_indices;
+    //   VkSurfaceKHR surface;
+    //   VkBool32 surface_support;
+    //   VkSurfaceCapabilitiesKHR surface_capabilities;
+    //   VkSurfaceFormatKHR* surface_formats;
 
-      VkPresentInfoKHR* present_i;
-    };
+    //   std::vector<const char*> device_extensions;
+    //   VkDevice device;
+    //   VkQueue graphics_queue;
+    //   VkQueue present_queue;
+
+    //   VkSwapchainKHR swapchain;
+    //   VkImage* swapchain_images;
+    //   uint32_t swapchain_image_count;
+    //   VkImageView* swapchain_image_views;
+
+    //   VkAttachmentDescription
+    //     color_attachment,
+    //     color_attachment_resolve;
+    //   VkAttachmentReference
+    //     color_attachment_reference,
+    //     color_attachment_resolve_reference;
+    //   VkSubpassDescription subpass;
+    //   VkSubpassDependency subpass_dependency;
+    //   VkAttachmentDescription render_pass_attachments[2];
+    //   VkRenderPass render_pass;
+    //   VkImage* images;
+    //   VkDeviceMemory* image_mem;
+    //   VkImageView* image_views;
+    //   VkFramebuffer* framebuffers;
+    //   VkImageView* framebuffer_attachments;
+    //   VkMemoryRequirements mem_reqs;
+    //   uint32_t mem_type_index;
+
+    //   VkViewport viewport;
+    //   VkRect2D scissor;
+    //   VkPipelineColorBlendAttachmentState color_blend_attachment_state;
+
+    //   VkPipelineVertexInputStateCreateInfo default_pipeline_vertex_input_state_ci;
+    //   VkPipelineInputAssemblyStateCreateInfo default_pipeline_input_assembly_state_ci;
+    //   VkPipelineTessellationStateCreateInfo default_pipeline_tesselation_state_ci;
+    //   VkPipelineViewportStateCreateInfo default_pipeline_viewport_state_ci;
+    //   VkPipelineRasterizationStateCreateInfo default_pipeline_rasterization_state_ci;
+    //   VkPipelineMultisampleStateCreateInfo default_pipeline_multisample_state_ci;
+    //   VkPipelineDepthStencilStateCreateInfo default_pipeline_depth_stencil_state_ci;
+    //   VkPipelineColorBlendStateCreateInfo default_pipeline_color_blend_state_ci;
+    //   VkPipelineDynamicStateCreateInfo default_pipeline_dynamic_state_ci;
+
+    //   VkFence* fences;
+    //   VkSemaphore* image_available_semaphores;
+    //   VkSemaphore* render_finished_semaphores;
+
+    //   uint32_t* image_indices;
+
+    //   VkPresentInfoKHR* present_i;
+    // };
 
     void loadSharedLibrary (HMODULE* hmodule_api) {
 
@@ -351,6 +344,7 @@ namespace XGK {
       GET_PROC_ADDR(vkGetPhysicalDeviceFeatures);
       GET_PROC_ADDR(vkGetPhysicalDeviceQueueFamilyProperties);
       GET_PROC_ADDR(vkGetPhysicalDeviceMemoryProperties);
+      GET_PROC_ADDR(vkGetPhysicalDeviceFormatProperties);
 
       GET_PROC_ADDR(vkGetDeviceProcAddr);
       GET_PROC_ADDR(vkCreateDevice);
@@ -643,12 +637,33 @@ namespace XGK {
       info->layers = 1;
     };
 
-    void initMemoryAI (VkMemoryAllocateInfo* info) {
+    void initMemAI (VkMemoryAllocateInfo* info) {
 
       info->sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
       info->pNext = nullptr;
       info->allocationSize = 0;
       info->memoryTypeIndex = 0;
+    };
+
+    inline VkMemoryAllocateInfo MemAI (void) {
+
+      VkMemoryAllocateInfo info = { 0 };
+
+      info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+      info.pNext = nullptr;
+      info.allocationSize = 0;
+      info.memoryTypeIndex = 0;
+
+      return info;
+    };
+
+    inline VkDeviceMemory allocMem (VkDevice device, const VkMemoryAllocateInfo* pAllocateInfo, const VkAllocationCallbacks* pAllocator = nullptr) {
+
+      VkDeviceMemory handle = VK_NULL_HANDLE;
+
+      vkAllocateMemory(device, pAllocateInfo, pAllocator, &handle);
+
+      return handle;
     };
 
     void initDescriptorSetLayoutBinding (VkDescriptorSetLayoutBinding* binding) {
@@ -706,6 +721,31 @@ namespace XGK {
       info->pQueueFamilyIndices = nullptr;
     };
 
+    inline VkBufferCreateInfo BufCI (void) {
+
+      VkBufferCreateInfo info = { 0 };
+
+      info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+      info.pNext = nullptr;
+      info.flags = 0; // VkBufferCreateFlags(3), VkBufferCreateFlagBits(3)
+      info.size = 0;
+      info.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT; // VkBufferUsageFlags(3), VkBufferUsageFlagBits(3)
+      info.sharingMode = VK_SHARING_MODE_EXCLUSIVE; // VkSharingMode(3)
+      info.queueFamilyIndexCount = 0;
+      info.pQueueFamilyIndices = nullptr;
+
+      return info;
+    };
+
+    inline VkBuffer createBuffer (VkDevice device, const VkBufferCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator = nullptr) {
+
+      VkBuffer handle = VK_NULL_HANDLE;
+
+      vkCreateBuffer(device, pCreateInfo, pAllocator, &handle);
+
+      return handle;
+    };
+
     // void* createUniformBuffer (VkBuffer &uniform_buffer, const uint64_t size) {
 
     //   initBufferCI(&vk_uniform_buffer_ci);
@@ -746,13 +786,13 @@ namespace XGK {
       write->pTexelBufferView = nullptr;
     };
 
-    uint32_t getMemTypeIndex (VkPhysicalDeviceMemoryProperties* mem_props, VkMemoryRequirements* mem_reqs, VkMemoryPropertyFlags flags) {
+    uint32_t getMemTypeIndex (VkMemoryRequirements mem_reqs, VkMemoryPropertyFlags flags) {
 
-      uint32_t mem_type_count = mem_props->memoryTypeCount;
+      uint32_t mem_type_count = context->mem_props.memoryTypeCount;
 
       for (uint32_t i = 0; i < mem_type_count; i++) {
 
-        uint32_t match = (mem_reqs->memoryTypeBits & (1 << i)) && (mem_props->memoryTypes[i].propertyFlags & flags);
+        uint32_t match = (mem_reqs.memoryTypeBits & (1 << i)) && (context->mem_props.memoryTypes[i].propertyFlags & flags);
 
         if (match) {
 
@@ -786,8 +826,8 @@ namespace XGK {
     void initVertexInputBindingDesc (VkVertexInputBindingDescription* desc) {
 
       desc->binding = 0;
-      desc->stride = 0;
-      desc->inputRate; // VkVertexInputRate(3)
+      desc->stride = 12;
+      desc->inputRate = VK_VERTEX_INPUT_RATE_VERTEX; // VkVertexInputRate(3)
     };
 
     void initVertexInputAttribDesc (VkVertexInputAttributeDescription* desc) {
@@ -903,7 +943,7 @@ namespace XGK {
       state->srcAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // VkBlendFactor(3)
       state->dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // VkBlendFactor(3)
       state->alphaBlendOp = VK_BLEND_OP_ADD; // VkBlendOp(3)
-      state->colorWriteMask = VK_COLOR_COMPONENT_R_BIT; // VkColorComponentFlags(3), VkColorComponentFlagBits(3)
+      state->colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT; // VkColorComponentFlags(3), VkColorComponentFlagBits(3)
     };
 
     void initPplColorBlend (VkPipelineColorBlendStateCreateInfo* info) {
@@ -940,6 +980,100 @@ namespace XGK {
       info->pushConstantRangeCount = 0;
       info->pPushConstantRanges = nullptr; // VkPushConstantRange(3)
     };
+
+    // void addDescriptorBinding (
+    //   std::vector<VkDescriptorSetLayout>* descr_set_layouts,
+    //   VkPipelineLayoutCreateInfo* info,
+    //   uint32_t binding,
+    //   VkDescriptorType descriptorType,
+    //   uint32_t descriptorCount,
+    //   VkShaderStageFlags stageFlags,
+    //   const VkSampler* pImmutableSamplers
+    // ) {
+
+    //   VkDescriptorSetLayout set_layout = VK_NULL_HANDLE;
+
+    //   VkDescriptorSetLayoutCreateInfo set_layout_ci = { 0 };
+
+    //   VkDescriptorSetLayoutBinding binding = { 0 };
+    //   binding->binding = binding;
+    //   binding->descriptorType = descriptorType;
+    //   binding->descriptorCount = descriptorCount;
+    //   binding->stageFlags = stageFlags;
+    //   binding->pImmutableSamplers = pImmutableSamplers;
+
+    //   initDescriptorSetLayoutCI(&set_layout_ci);
+    //   set_layout_ci.bindingCount = 1;
+    //   set_layout_ci.pBindings = &binding;
+    //   vkCreateDescriptorSetLayout(context.device, &set_layout_ci, nullptr, set_layout);
+
+    //   descr_set_layouts->push_back(set_layout);
+
+    //   info->setLayoutCount++;
+    //   info->pSetLayouts = setLayouts->data();
+    // };
+
+    VkDescriptorSetLayoutBinding DescrSetLayoutBinding (
+      uint32_t binding_,
+      VkDescriptorType descriptorType,
+      uint32_t descriptorCount,
+      VkShaderStageFlags stageFlags,
+      const VkSampler* pImmutableSamplers
+    ) {
+
+      VkDescriptorSetLayoutBinding binding = { 0 };
+
+      binding.binding = binding_;
+      binding.descriptorType = descriptorType;
+      binding.descriptorCount = descriptorCount;
+      binding.stageFlags = stageFlags;
+      binding.pImmutableSamplers = pImmutableSamplers;
+
+      return binding;
+    };
+
+    VkDescriptorSetLayoutCreateInfo DescrSetLayoutCI () {
+
+      VkDescriptorSetLayoutCreateInfo info = { 0 };
+
+      info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+      info.pNext = nullptr;
+      info.flags = 0; // VkDescriptorSetLayoutCreateFlags(3), VkDescriptorSetLayoutCreateFlagBits(3)
+      info.bindingCount = 0;
+      info.pBindings = nullptr;
+
+      return info;
+    };
+
+    VkDescriptorsetLayout createDescrSetLayout (VkDevice device, const VkDescriptorSetLayoutCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator) {
+
+      VkDescriptorsetLayout layout = VK_NULL_HANDLE;
+
+      vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, &layout);
+
+      return layout;
+    };
+
+    VkDescriptorPoolSize getDescriptorPoolSize (
+      VkDescriptorType type,
+      uint32_t descriptorCount
+    ) {
+
+      VkDescriptorPoolSize size = { 0 };
+
+      size.type = type;
+      size.descriptorCount = descriptorCount;
+
+      return size;
+    };
+
+    // void destroyDescrSetLayouts (VkPipelineLayoutCreateInfo* info) {
+
+    //   for (uint64_t i = 0; i < descr_set_layouts.size; i++) {
+
+    //     vkDestroyDescriptorSetLayout(context.device, info->pSetLayouts[i], nullptr);
+    //   }
+    // };
 
     void initPplCI (VkGraphicsPipelineCreateInfo* info) {
 
@@ -1064,7 +1198,86 @@ namespace XGK {
       info->pClearValues = nullptr; // VkClearValue(3), VkClearColorValue(3), VkClearDepthStencilValue(3)
     };
 
-    void initContext (Context* context, const uint32_t width, const uint32_t height, const VkSampleCountFlagBits sample_count) {
+
+
+    void destroyContext (Context* context) {
+
+      // vkDestroyShaderModule(context->device, context->fragment_shader_module, nullptr);
+      // vkDestroyShaderModule(context->device, context->vertex_shader_module, nullptr);
+      // vkFreeMemory(context->device, context->vertex_buffer_mem, nullptr);
+      // vkDestroyBuffer(context->device, context->vertex_buffer, nullptr);
+      // vkFreeMemory(context->device, context->uniform_buffer_mem, nullptr);
+      // vkDestroyBuffer(context->device, context->uniform_buffer, nullptr);
+      // vkDestroyDescriptorPool(context->device, context->descriptor_pool, nullptr);
+      // vkDestroyDescriptorSetLayout(context->device, context->descriptor_set_layout, nullptr);
+
+      for (uint32_t i = 0; i < context->swapchain_image_count; i++) {
+
+        vkDestroyFence(context->device, context->fences[i], nullptr);
+        vkDestroySemaphore(context->device, context->image_available_semaphores[i], nullptr);
+        vkDestroySemaphore(context->device, context->render_finished_semaphores[i], nullptr);
+      }
+
+      delete[] context->present_i;
+
+      delete[] context->image_indices;
+
+      delete[] context->render_finished_semaphores;
+      delete[] context->image_available_semaphores;
+      delete[] context->fences;
+
+      for (uint32_t i = 0; i < context->swapchain_image_count; i++) {
+        vkDestroyFramebuffer(context->device, context->framebuffers[i], nullptr);
+        vkDestroyImageView(context->device, context->image_views[i], nullptr);
+      
+        // image 0 will be destroyed further
+        if (i) {
+          vkDestroyImage(context->device, context->images[i], nullptr);
+          vkFreeMemory(context->device, context->image_mem[i], nullptr);
+        }
+      }
+      
+      vkDestroyImage(context->device, context->images[0], nullptr);
+      vkFreeMemory(context->device, context->image_mem[0], nullptr);
+
+      delete[] context->framebuffer_attachments;
+      delete[] context->framebuffers;
+      delete[] context->framebuffer_ci;
+      delete[] context->image_views;
+      delete[] context->image_view_ci;
+      delete[] context->images;
+      delete[] context->image_ci;
+
+      vkDestroyRenderPass(context->device, context->render_pass, nullptr);
+
+      for (uint32_t i = 0; i < context->swapchain_image_count; i++) {
+        vkDestroyImageView(context->device, context->swapchain_image_views[i], nullptr);
+      }
+
+      delete[] context->swapchain_image_views;
+      delete[] context->swapchain_image_view_ci;
+      delete[] context->swapchain_images;
+      vkDestroySwapchainKHR(context->device, context->swapchain, nullptr);
+      vkDestroyDevice(context->device, nullptr);
+      delete[] context->surface_formats;
+      vkDestroySurfaceKHR(context->instance, context->surface, nullptr);
+
+      delete[] context->queue_family_props;
+      delete[] context->physical_devices;
+
+      #ifdef DEBUG
+        MACRO_DESTROY_DEBUG_REPORT_CALLBACKS(context->instance);
+      #endif
+
+      vkDestroyInstance(context->instance, nullptr);
+
+      glfwDestroyWindow(window);
+      glfwTerminate();
+
+      FreeLibrary(context->hmodule_api);
+    };
+
+    void initContext (const uint32_t width, const uint32_t height, Context* context, const VkSampleCountFlagBits sample_count) {
 
       context->hmodule_api = 0;
       context->count = 0;
@@ -1076,7 +1289,7 @@ namespace XGK {
       glfwInit();
       glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
       glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-      context->window = glfwCreateWindow(800, 600, "", nullptr, nullptr);
+      window = glfwCreateWindow(width, height, "", nullptr, nullptr);
 
       context->instance_layers.push_back("VK_LAYER_KHRONOS_validation");
 
@@ -1113,17 +1326,47 @@ namespace XGK {
       // std::cout << test.deviceName << std::endl;
       // std::cout << test.pipelineCacheUUID << std::endl;
 
+      // int a;
+      // std::cin >> a;
+
       vkGetPhysicalDeviceQueueFamilyProperties(context->physical_devices[0], &context->count, nullptr);
       context->queue_family_props = new VkQueueFamilyProperties[context->count];
       vkGetPhysicalDeviceQueueFamilyProperties(context->physical_devices[0], &context->count, context->queue_family_props);
 
       initWin32SurfaceCI(&context->win32_surface_ci);
       context->win32_surface_ci.hinstance = GetModuleHandle(nullptr);
-      context->win32_surface_ci.hwnd = glfwGetWin32Window(context->window);
+      context->win32_surface_ci.hwnd = glfwGetWin32Window(window);
       vkCreateWin32SurfaceKHR(context->instance, &context->win32_surface_ci, nullptr, &context->surface);
 
+      uint64_t graphics_queue_family_index = 0;
+      uint64_t present_queue_family_index = 0;
+      uint64_t graphics_queue_index = 0;
+      uint64_t present_queue_index = 0;
+
+      std::cout << "queue family properties count: " << context->count << std::endl;
+      std::cout << std::endl << std::endl;
+
+      for (uint64_t i = 0; i < context->count; i++) {
+
+        std::cout << "queue family index: " << i << std::endl;
+        std::cout << std::endl;
+        std::cout << "graphics: " << (context->queue_family_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT || 0) << std::endl;
+        std::cout << "compute: " << (context->queue_family_props[i].queueFlags & VK_QUEUE_COMPUTE_BIT || 0) << std::endl;
+        std::cout << "transfer: " << (context->queue_family_props[i].queueFlags & VK_QUEUE_TRANSFER_BIT || 0) << std::endl;
+        std::cout << "sparse binding: " << (context->queue_family_props[i].queueFlags & VK_QUEUE_SPARSE_BINDING_BIT || 0) << std::endl;
+        std::cout << "protected: " << (context->queue_family_props[i].queueFlags & VK_QUEUE_PROTECTED_BIT || 0) << std::endl;
+        std::cout << "all: " << (context->queue_family_props[i].queueFlags & VK_QUEUE_FLAG_BITS_MAX_ENUM || 0) << std::endl;
+        std::cout << std::endl;
+        std::cout << "queue count: " << context->queue_family_props[i].queueCount << std::endl;
+        std::cout << "timestamp valid bits: " << context->queue_family_props[i].timestampValidBits << std::endl;
+        // std::cout << context->queue_family_props[i].minImageTransferGranularity << std::endl;
+        vkGetPhysicalDeviceSurfaceSupportKHR(context->physical_devices[0], i, context->surface, &context->surface_support);
+        std::cout << "presentation support: " << context->surface_support << std::endl;
+        std::cout << std::endl << std::endl;
+      }
+
       vkGetPhysicalDeviceMemoryProperties(context->physical_devices[0], &context->mem_props);
-      vkGetPhysicalDeviceSurfaceSupportKHR(context->physical_devices[0], 0, context->surface, &context->surface_support);
+      // vkGetPhysicalDeviceSurfaceSupportKHR(context->physical_devices[0], 0, context->surface, &context->surface_support);
       vkGetPhysicalDeviceSurfaceCapabilitiesKHR(context->physical_devices[0], context->surface, &context->surface_capabilities);
 
       vkGetPhysicalDeviceSurfaceFormatsKHR(context->physical_devices[0], context->surface, &context->count, nullptr);
@@ -1227,8 +1470,8 @@ namespace XGK {
       vkCreateImage(context->device, &context->image_ci[0], nullptr, &context->images[0]);
 
       vkGetImageMemoryRequirements(context->device, context->images[0], &context->mem_reqs);
-      context->mem_type_index = getMemTypeIndex(&context->mem_props, &context->mem_reqs, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-      initMemoryAI(&context->image_mem_ai);
+      context->mem_type_index = getMemTypeIndex(context, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+      initMemAI(&context->image_mem_ai);
       context->image_mem_ai.allocationSize = context->mem_reqs.size;
       context->image_mem_ai.memoryTypeIndex = context->mem_type_index;
 
@@ -1311,83 +1554,6 @@ namespace XGK {
         context->present_i[i].pSwapchains = &context->swapchain;
         context->present_i[i].pImageIndices = &context->image_indices[i];
       }
-    };
-
-    void destroyContext (Context* context) {
-
-      // vkDestroyShaderModule(context->device, context->fragment_shader_module, nullptr);
-      // vkDestroyShaderModule(context->device, context->vertex_shader_module, nullptr);
-      // vkFreeMemory(context->device, context->vertex_buffer_mem, nullptr);
-      // vkDestroyBuffer(context->device, context->vertex_buffer, nullptr);
-      // vkFreeMemory(context->device, context->uniform_buffer_mem, nullptr);
-      // vkDestroyBuffer(context->device, context->uniform_buffer, nullptr);
-      // vkDestroyDescriptorPool(context->device, context->descriptor_pool, nullptr);
-      // vkDestroyDescriptorSetLayout(context->device, context->descriptor_set_layout, nullptr);
-
-      for (uint32_t i = 0; i < context->swapchain_image_count; i++) {
-
-        vkDestroyFence(context->device, context->fences[i], nullptr);
-        vkDestroySemaphore(context->device, context->image_available_semaphores[i], nullptr);
-        vkDestroySemaphore(context->device, context->render_finished_semaphores[i], nullptr);
-      }
-
-      delete[] context->present_i;
-
-      delete[] image_indices;
-
-      delete[] context->render_finished_semaphores;
-      delete[] context->image_available_semaphores;
-      delete[] context->fences;
-
-      for (uint32_t i = 0; i < context->swapchain_image_count; i++) {
-        vkDestroyFramebuffer(context->device, context->framebuffers[i], nullptr);
-        vkDestroyImageView(context->device, context->image_views[i], nullptr);
-      
-        // image 0 will be destroyed further
-        if (i) {
-          vkDestroyImage(context->device, context->images[i], nullptr);
-          vkFreeMemory(context->device, context->image_mem[i], nullptr);
-        }
-      }
-      
-      vkDestroyImage(context->device, context->images[0], nullptr);
-      vkFreeMemory(context->device, context->image_mem[0], nullptr);
-
-      delete[] context->framebuffer_attachments;
-      delete[] context->framebuffers;
-      delete[] context->framebuffer_ci;
-      delete[] context->image_views;
-      delete[] context->image_view_ci;
-      delete[] context->images;
-      delete[] context->image_ci;
-
-      vkDestroyRenderPass(context->device, context->render_pass, nullptr);
-
-      for (uint32_t i = 0; i < context->swapchain_image_count; i++) {
-        vkDestroyImageView(context->device, context->swapchain_image_views[i], nullptr);
-      }
-
-      delete[] context->swapchain_image_views;
-      delete[] context->swapchain_image_view_ci;
-      delete[] context->swapchain_images;
-      vkDestroySwapchainKHR(context->device, context->swapchain, nullptr);
-      vkDestroyDevice(context->device, nullptr);
-      delete[] context->surface_formats;
-      vkDestroySurfaceKHR(context->instance, context->surface, nullptr);
-
-      delete[] context->queue_family_props;
-      delete[] context->physical_devices;
-
-      #ifdef DEBUG
-        MACRO_DESTROY_DEBUG_REPORT_CALLBACKS(context->instance);
-      #endif
-
-      vkDestroyInstance(context->instance, nullptr);
-
-      glfwDestroyWindow(context->window);
-      glfwTerminate();
-
-      FreeLibrary(context->hmodule_api);
     };
   };
 };

@@ -10,6 +10,10 @@
 
 
 
+#include <cstdint>
+
+
+
 namespace XGK {
 
   struct Object;
@@ -32,6 +36,8 @@ namespace XGK {
     alignas(4) float speed_x;
 
     alignas(4) float speed_y;
+
+    alignas(16) float prev_quat[4];
   };
 
 
@@ -42,8 +48,8 @@ namespace XGK {
 
       inline void init (Orbit*, Object*, Transition*);
       inline void rotate (Orbit*);
-      inline void test (Orbit*, const float);
-      inline void move (Orbit*, Time*, const float, const float);
+      // inline void test (Orbit*, const float);
+      inline void move (Orbit*, Time*, const float, const float, void (*) (const float, void*));
       inline void update (Orbit*);
     };
   #endif

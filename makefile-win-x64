@@ -7,6 +7,7 @@ COMP_ARGS=/c /EHsc /MD /MP999 /O2 /IE:/reps/denis-belov/xgk/src /DMEM_ADDR_LENGT
 
 $(BUILD)/lib/xgk.lib : \
 $(BUILD)/obj/win-x64.obj \
+$(BUILD)/obj/util.obj \
 $(BUILD)/obj/vec4.obj \
 $(BUILD)/obj/vec4-32.obj \
 $(BUILD)/obj/vec4-128.obj \
@@ -22,6 +23,7 @@ $(BUILD)/obj/orbit.obj
   lib \
   /OUT:$(BUILD)/lib/xgk.lib \
   $(BUILD)/obj/win-x64.obj \
+  $(BUILD)/obj/util.obj \
   $(BUILD)/obj/vec4.obj \
   $(BUILD)/obj/vec4-32.obj \
   $(BUILD)/obj/vec4-128.obj \
@@ -42,6 +44,16 @@ $(BUILD)/obj/win-x64.obj : $(SRC)/util/win-x64.asm
   /Fo$(BUILD)/obj/win-x64.obj \
   /c \
   $(SRC)/util/win-x64.asm
+
+
+
+$(BUILD)/obj/util.obj : $(SRC)/util/util.cpp
+  cl \
+  $(SRC)/util/util.cpp \
+  $(COMP_ARGS) \
+  /Fo$(BUILD)/obj/util.obj \
+  /FA \
+  /Fa$(BUILD)/masm/util.asm
 
 
 

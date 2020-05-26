@@ -43,11 +43,12 @@ CONST	SEGMENT
 CONST	ENDS
 PUBLIC	?sqrt@@YAMM@Z					; sqrt
 PUBLIC	?ident@QUAT@DATA@XGK@@YAXPEAX@Z			; XGK::DATA::QUAT::ident
-PUBLIC	?length@QUAT@DATA@XGK@@YAMPEAX@Z		; XGK::DATA::QUAT::length
-PUBLIC	?normalize@QUAT@DATA@XGK@@YAXPEAX@Z		; XGK::DATA::QUAT::normalize
+PUBLIC	?len@QUAT@DATA@XGK@@YAMPEAX@Z			; XGK::DATA::QUAT::len
+PUBLIC	?lens@QUAT@DATA@XGK@@YAMPEAX@Z			; XGK::DATA::QUAT::lens
+PUBLIC	?norm@QUAT@DATA@XGK@@YAXPEAX@Z			; XGK::DATA::QUAT::norm
 PUBLIC	?simd32@QUAT@DATA@XGK@@YAXXZ			; XGK::DATA::QUAT::simd32
 PUBLIC	?simd128@QUAT@DATA@XGK@@YAXXZ			; XGK::DATA::QUAT::simd128
-PUBLIC	__xmm@3f8000003f8000003f8000003f800000
+PUBLIC	__real@3f800000
 EXTRN	?premul32@QUAT@DATA@XGK@@YAXPEAX0@Z:PROC	; XGK::DATA::QUAT::premul32
 EXTRN	?postmul32@QUAT@DATA@XGK@@YAXPEAX0@Z:PROC	; XGK::DATA::QUAT::postmul32
 EXTRN	?makeRot32@QUAT@DATA@XGK@@YAXPEAX0M@Z:PROC	; XGK::DATA::QUAT::makeRot32
@@ -78,59 +79,69 @@ EXTRN	?preRotZ128@QUAT@DATA@XGK@@YAXPEAXM@Z:PROC	; XGK::DATA::QUAT::preRotZ128
 EXTRN	?postRotZ128@QUAT@DATA@XGK@@YAXPEAXM@Z:PROC	; XGK::DATA::QUAT::postRotZ128
 EXTRN	sqrtf:PROC
 EXTRN	_fltused:DWORD
-;	COMDAT __xmm@3f8000003f8000003f8000003f800000
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$?norm@QUAT@DATA@XGK@@YAXPEAX@Z DD imagerel $LN20
+	DD	imagerel $LN20+92
+	DD	imagerel $unwind$?norm@QUAT@DATA@XGK@@YAXPEAX@Z
+pdata	ENDS
+;	COMDAT __real@3f800000
 CONST	SEGMENT
-__xmm@3f8000003f8000003f8000003f800000 DB 00H, 00H, 080H, '?', 00H, 00H, 080H
-	DB	'?', 00H, 00H, 080H, '?', 00H, 00H, 080H, '?'
+__real@3f800000 DD 03f800000r			; 1
 CONST	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$unwind$?norm@QUAT@DATA@XGK@@YAXPEAX@Z DD 020601H
+	DD	030023206H
+xdata	ENDS
 ; Function compile flags: /Ogtpy
 ;	COMDAT ?simd128@QUAT@DATA@XGK@@YAXXZ
 _TEXT	SEGMENT
 ?simd128@QUAT@DATA@XGK@@YAXXZ PROC			; XGK::DATA::QUAT::simd128, COMDAT
 ; File E:\reps\denis-belov\xgk\src\data\quat\quat.cpp
-; Line 112
+; Line 129
 	lea	rax, OFFSET FLAT:?premul128@QUAT@DATA@XGK@@YAXPEAX0@Z ; XGK::DATA::QUAT::premul128
 	mov	QWORD PTR ?premul@QUAT@DATA@XGK@@3P6AXPEAX0@ZEA, rax ; XGK::DATA::QUAT::premul
-; Line 113
+; Line 130
 	lea	rax, OFFSET FLAT:?postmul128@QUAT@DATA@XGK@@YAXPEAX0@Z ; XGK::DATA::QUAT::postmul128
 	mov	QWORD PTR ?postmul@QUAT@DATA@XGK@@3P6AXPEAX0@ZEA, rax ; XGK::DATA::QUAT::postmul
-; Line 114
+; Line 131
 	lea	rax, OFFSET FLAT:?makeRot128@QUAT@DATA@XGK@@YAXPEAX0M@Z ; XGK::DATA::QUAT::makeRot128
 	mov	QWORD PTR ?makeRot@QUAT@DATA@XGK@@3P6AXPEAX0M@ZEA, rax ; XGK::DATA::QUAT::makeRot
-; Line 115
+; Line 132
 	lea	rax, OFFSET FLAT:?preRot128@QUAT@DATA@XGK@@YAXPEAX0M@Z ; XGK::DATA::QUAT::preRot128
 	mov	QWORD PTR ?preRot@QUAT@DATA@XGK@@3P6AXPEAX0M@ZEA, rax ; XGK::DATA::QUAT::preRot
-; Line 116
+; Line 133
 	lea	rax, OFFSET FLAT:?postRot128@QUAT@DATA@XGK@@YAXPEAX0M@Z ; XGK::DATA::QUAT::postRot128
 	mov	QWORD PTR ?postRot@QUAT@DATA@XGK@@3P6AXPEAX0M@ZEA, rax ; XGK::DATA::QUAT::postRot
-; Line 117
+; Line 134
 	lea	rax, OFFSET FLAT:?makeRotX128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::makeRotX128
 	mov	QWORD PTR ?makeRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::makeRotX
-; Line 118
+; Line 135
 	lea	rax, OFFSET FLAT:?preRotX128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::preRotX128
 	mov	QWORD PTR ?preRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::preRotX
-; Line 119
+; Line 136
 	lea	rax, OFFSET FLAT:?postRotX128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::postRotX128
 	mov	QWORD PTR ?postRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::postRotX
-; Line 120
+; Line 137
 	lea	rax, OFFSET FLAT:?makeRotY128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::makeRotY128
 	mov	QWORD PTR ?makeRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::makeRotY
-; Line 121
+; Line 138
 	lea	rax, OFFSET FLAT:?preRotY128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::preRotY128
 	mov	QWORD PTR ?preRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::preRotY
-; Line 122
+; Line 139
 	lea	rax, OFFSET FLAT:?postRotY128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::postRotY128
 	mov	QWORD PTR ?postRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::postRotY
-; Line 123
+; Line 140
 	lea	rax, OFFSET FLAT:?makeRotZ128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::makeRotZ128
 	mov	QWORD PTR ?makeRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::makeRotZ
-; Line 124
+; Line 141
 	lea	rax, OFFSET FLAT:?preRotZ128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::preRotZ128
 	mov	QWORD PTR ?preRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::preRotZ
-; Line 125
+; Line 142
 	lea	rax, OFFSET FLAT:?postRotZ128@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::postRotZ128
 	mov	QWORD PTR ?postRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::postRotZ
-; Line 126
+; Line 143
 	ret	0
 ?simd128@QUAT@DATA@XGK@@YAXXZ ENDP			; XGK::DATA::QUAT::simd128
 _TEXT	ENDS
@@ -139,73 +150,122 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?simd32@QUAT@DATA@XGK@@YAXXZ PROC			; XGK::DATA::QUAT::simd32, COMDAT
 ; File E:\reps\denis-belov\xgk\src\data\quat\quat.cpp
-; Line 94
+; Line 111
 	lea	rax, OFFSET FLAT:?premul32@QUAT@DATA@XGK@@YAXPEAX0@Z ; XGK::DATA::QUAT::premul32
 	mov	QWORD PTR ?premul@QUAT@DATA@XGK@@3P6AXPEAX0@ZEA, rax ; XGK::DATA::QUAT::premul
-; Line 95
+; Line 112
 	lea	rax, OFFSET FLAT:?postmul32@QUAT@DATA@XGK@@YAXPEAX0@Z ; XGK::DATA::QUAT::postmul32
 	mov	QWORD PTR ?postmul@QUAT@DATA@XGK@@3P6AXPEAX0@ZEA, rax ; XGK::DATA::QUAT::postmul
-; Line 96
+; Line 113
 	lea	rax, OFFSET FLAT:?makeRot32@QUAT@DATA@XGK@@YAXPEAX0M@Z ; XGK::DATA::QUAT::makeRot32
 	mov	QWORD PTR ?makeRot@QUAT@DATA@XGK@@3P6AXPEAX0M@ZEA, rax ; XGK::DATA::QUAT::makeRot
-; Line 97
+; Line 114
 	lea	rax, OFFSET FLAT:?preRot32@QUAT@DATA@XGK@@YAXPEAX0M@Z ; XGK::DATA::QUAT::preRot32
 	mov	QWORD PTR ?preRot@QUAT@DATA@XGK@@3P6AXPEAX0M@ZEA, rax ; XGK::DATA::QUAT::preRot
-; Line 98
+; Line 115
 	lea	rax, OFFSET FLAT:?postRot32@QUAT@DATA@XGK@@YAXPEAX0M@Z ; XGK::DATA::QUAT::postRot32
 	mov	QWORD PTR ?postRot@QUAT@DATA@XGK@@3P6AXPEAX0M@ZEA, rax ; XGK::DATA::QUAT::postRot
-; Line 99
+; Line 116
 	lea	rax, OFFSET FLAT:?makeRotX32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::makeRotX32
 	mov	QWORD PTR ?makeRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::makeRotX
-; Line 100
+; Line 117
 	lea	rax, OFFSET FLAT:?preRotX32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::preRotX32
 	mov	QWORD PTR ?preRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::preRotX
-; Line 101
+; Line 118
 	lea	rax, OFFSET FLAT:?postRotX32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::postRotX32
 	mov	QWORD PTR ?postRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::postRotX
-; Line 102
+; Line 119
 	lea	rax, OFFSET FLAT:?makeRotY32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::makeRotY32
 	mov	QWORD PTR ?makeRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::makeRotY
-; Line 103
+; Line 120
 	lea	rax, OFFSET FLAT:?preRotY32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::preRotY32
 	mov	QWORD PTR ?preRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::preRotY
-; Line 104
+; Line 121
 	lea	rax, OFFSET FLAT:?postRotY32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::postRotY32
 	mov	QWORD PTR ?postRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::postRotY
-; Line 105
+; Line 122
 	lea	rax, OFFSET FLAT:?makeRotZ32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::makeRotZ32
 	mov	QWORD PTR ?makeRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::makeRotZ
-; Line 106
+; Line 123
 	lea	rax, OFFSET FLAT:?preRotZ32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::preRotZ32
 	mov	QWORD PTR ?preRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::preRotZ
-; Line 107
+; Line 124
 	lea	rax, OFFSET FLAT:?postRotZ32@QUAT@DATA@XGK@@YAXPEAXM@Z ; XGK::DATA::QUAT::postRotZ32
 	mov	QWORD PTR ?postRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA, rax ; XGK::DATA::QUAT::postRotZ
-; Line 108
+; Line 125
 	ret	0
 ?simd32@QUAT@DATA@XGK@@YAXXZ ENDP			; XGK::DATA::QUAT::simd32
 _TEXT	ENDS
 ; Function compile flags: /Ogtpy
-;	COMDAT ?normalize@QUAT@DATA@XGK@@YAXPEAX@Z
+;	COMDAT ?norm@QUAT@DATA@XGK@@YAXPEAX@Z
 _TEXT	SEGMENT
-data$ = 8
-?normalize@QUAT@DATA@XGK@@YAXPEAX@Z PROC		; XGK::DATA::QUAT::normalize, COMDAT
+data$ = 48
+?norm@QUAT@DATA@XGK@@YAXPEAX@Z PROC			; XGK::DATA::QUAT::norm, COMDAT
 ; File E:\reps\denis-belov\xgk\src\data\quat\quat.cpp
-; Line 84
-	movups	xmm0, XMMWORD PTR [rcx]
-	divps	xmm0, XMMWORD PTR __xmm@3f8000003f8000003f8000003f800000
-	movups	XMMWORD PTR [rcx], xmm0
-; Line 88
+; Line 93
+$LN20:
+	push	rbx
+	sub	rsp, 32					; 00000020H
+; Line 98
+	movss	xmm1, DWORD PTR [rcx+4]
+	mov	rbx, rcx
+	movss	xmm0, DWORD PTR [rcx]
+	movss	xmm2, DWORD PTR [rcx+8]
+	movss	xmm3, DWORD PTR [rcx+12]
+	mulss	xmm0, xmm0
+	mulss	xmm1, xmm1
+	mulss	xmm2, xmm2
+	addss	xmm0, xmm1
+	mulss	xmm3, xmm3
+	addss	xmm0, xmm2
+	addss	xmm0, xmm3
+; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\cmath
+; Line 238
+	call	sqrtf
+; File E:\reps\denis-belov\xgk\src\data\quat\quat.cpp
+; Line 98
+	movss	xmm2, DWORD PTR __real@3f800000
+	divss	xmm2, xmm0
+; Line 100
+	movups	xmm0, XMMWORD PTR [rbx]
+	shufps	xmm2, xmm2, 0
+	mulps	xmm2, xmm0
+	movups	XMMWORD PTR [rbx], xmm2
+; Line 104
+	add	rsp, 32					; 00000020H
+	pop	rbx
 	ret	0
-?normalize@QUAT@DATA@XGK@@YAXPEAX@Z ENDP		; XGK::DATA::QUAT::normalize
+?norm@QUAT@DATA@XGK@@YAXPEAX@Z ENDP			; XGK::DATA::QUAT::norm
 _TEXT	ENDS
 ; Function compile flags: /Ogtpy
-;	COMDAT ?length@QUAT@DATA@XGK@@YAMPEAX@Z
+;	COMDAT ?lens@QUAT@DATA@XGK@@YAMPEAX@Z
 _TEXT	SEGMENT
 data$ = 8
-?length@QUAT@DATA@XGK@@YAMPEAX@Z PROC			; XGK::DATA::QUAT::length, COMDAT
+?lens@QUAT@DATA@XGK@@YAMPEAX@Z PROC			; XGK::DATA::QUAT::lens, COMDAT
 ; File E:\reps\denis-belov\xgk\src\data\quat\quat.cpp
-; Line 77
+; Line 88
+	movss	xmm1, DWORD PTR [rcx+4]
+	movss	xmm0, DWORD PTR [rcx]
+	movss	xmm2, DWORD PTR [rcx+8]
+	movss	xmm3, DWORD PTR [rcx+12]
+	mulss	xmm0, xmm0
+	mulss	xmm1, xmm1
+	mulss	xmm2, xmm2
+	addss	xmm0, xmm1
+	mulss	xmm3, xmm3
+	addss	xmm0, xmm2
+	addss	xmm0, xmm3
+; Line 89
+	ret	0
+?lens@QUAT@DATA@XGK@@YAMPEAX@Z ENDP			; XGK::DATA::QUAT::lens
+_TEXT	ENDS
+; Function compile flags: /Ogtpy
+;	COMDAT ?len@QUAT@DATA@XGK@@YAMPEAX@Z
+_TEXT	SEGMENT
+data$ = 8
+?len@QUAT@DATA@XGK@@YAMPEAX@Z PROC			; XGK::DATA::QUAT::len, COMDAT
+; File E:\reps\denis-belov\xgk\src\data\quat\quat.cpp
+; Line 79
 	movss	xmm1, DWORD PTR [rcx+4]
 	movss	xmm0, DWORD PTR [rcx]
 	movss	xmm2, DWORD PTR [rcx+8]
@@ -220,7 +280,7 @@ data$ = 8
 ; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\cmath
 ; Line 238
 	jmp	sqrtf
-?length@QUAT@DATA@XGK@@YAMPEAX@Z ENDP			; XGK::DATA::QUAT::length
+?len@QUAT@DATA@XGK@@YAMPEAX@Z ENDP			; XGK::DATA::QUAT::len
 _TEXT	ENDS
 ; Function compile flags: /Ogtpy
 ;	COMDAT ?ident@QUAT@DATA@XGK@@YAXPEAX@Z

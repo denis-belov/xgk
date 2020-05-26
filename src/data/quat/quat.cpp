@@ -71,21 +71,38 @@ namespace XGK {
 
 
 
-      float length (void* data) {
+      // TODO simd
+      float len (void* data) {
+
         float* data_f = (float*) data;
 
         return sqrt((data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]));
       }
 
-      void normalize (void* data) {
-        float* data_f = (float*) data;
-        const float value = length(data) || 1;
 
-        data_f[0] /= value;
-        data_f[1] /= value;
-        data_f[2] /= value;
-        data_f[3] /= value;
+
+      float lens (void* data) {
+
+        float* data_f = (float*) data;
+
+        return (data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]);
       }
+
+
+
+      void norm (void* data) {
+
+        float* data_f = (float*) data;
+
+        // const float lens = (data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]);
+        const float invlen = 1.0f / sqrt((data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]));
+
+        data_f[0] *= invlen;
+        data_f[1] *= invlen;
+        data_f[2] *= invlen;
+        data_f[3] *= invlen;
+      }
+      //
 
 
 

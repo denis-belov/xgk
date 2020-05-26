@@ -71,8 +71,8 @@ namespace XGK {
 
 
       inline void ident (void*);
-      inline float length (void* data);
-      inline void normalize (void* data);
+      inline float len (void* data);
+      inline void norm (void* data);
 
       inline void premul32 (void*, void*);
       inline void postmul32 (void*, void*);

@@ -5,6 +5,7 @@
 
 // #include <iostream>
 
+// uint64_t qwe = 0.0f;
 
 
 // TODO frame_time int for better performance
@@ -61,14 +62,16 @@ namespace XGK {
         time->stack_RANGE[time->stack_counter--] = time->stack_RANGE[--time->stack_length];
         time->stack_RANGE[time->stack_length] = nullptr;
       // }
+
+      // printf("\33[2J");
+      // std::cout << "update transition count: " << qwe << std::endl;
+      // qwe = 0;
     };
 
 
 
     // only cancels within stack execution, not for using manually
     void cancelTransition2 (Time* time, Transition* transition) {
-
-      // std::cout << transition->stack_index << time->stack_length << std::endl;
 
       if (transition->active) {
 
@@ -112,11 +115,7 @@ namespace XGK {
       void (* process_callback) (const float, void*)
     ) {
 
-      // std::cout << transition->stack_index << time->stack_length << std::endl;
-
       cancelTransition2(time, transition);
-
-      // std::cout << transition->stack_index << time->stack_length << std::endl;
 
       transition->interpolation = 0.0f;
       transition->duration = duration;
@@ -126,45 +125,16 @@ namespace XGK {
       transition->active = 1;
       transition->stack_index = time->stack_length;
 
-      // std::cout << transition->stack_index << time->stack_length << std::endl;
-
       time->stack_RANGE[time->stack_length++] = transition;
-
-      // std::cout << transition->stack_index << time->stack_length << std::endl;
-
-      // std::cout << "setTransition2 " << 444 << std::endl;
     };
-
-
-
-    // void setTransition3 (
-
-    //   Time* time,
-    //   Transition* transition,
-    //   void (* process_callback) (float)
-    // ) {
-
-    //   cancelTransition(time, transition);
-
-    //   transition->interpolation = 0.0f;
-    //   transition->duration = duration;
-    //   transition->process_callback = process_callback;
-    //   transition->end_callback = idle_function;
-    //   transition->time_gone = 0.0f;
-    //   transition->active = 1;
-
-    //   time->stack_RANGE[time->stack_length++] = transition;
-    // };
 
 
 
     void updateTransition (Time* time, Transition* transition) {
 
-      // std::cout << "asd" << std::endl;
-
       transition->interpolation = transition->time_gone / transition->duration;
 
-      // std::cout << transition->interpolation << std::endl;
+      // qwe++;
 
       if (floor(transition->interpolation)) {
 
@@ -176,23 +146,15 @@ namespace XGK {
 
         transition->time_gone += time->frame_time;
 
-        // std::cout << transition->time_gone << std::endl;
-
         transition->process_callback(transition->interpolation, transition->additional);
       }
-
-      // std::cout << "updateTransition " << transition->interpolation << std::endl;
     };
 
 
 
     void updateTransitions (Time* time) {
 
-      // std::cout << "updateTransitions " << 786 << std::endl;
-
       for (time->stack_counter = 0; time->stack_RANGE[time->stack_counter]; time->stack_counter++) {
-
-        // std::cout << time->stack_RANGE[time->stack_counter]->stack_index << time->stack_length << std::endl;
 
         updateTransition(time, time->stack_RANGE[time->stack_counter]);
       }

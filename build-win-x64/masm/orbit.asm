@@ -8,20 +8,15 @@ INCLUDELIB OLDNAMES
 PUBLIC	?init@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUObject@2@PEAUTransition@2@@Z ; XGK::ORBIT::init
 PUBLIC	?update@ORBIT@XGK@@YAXPEAUOrbit@2@@Z		; XGK::ORBIT::update
 PUBLIC	?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z		; XGK::ORBIT::rotate
-PUBLIC	?test@ORBIT@XGK@@YAXMPEAX@Z			; XGK::ORBIT::test
-PUBLIC	??$pow@MNX@@YANMN@Z				; pow<float,double,void>
-PUBLIC	?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MM@Z	; XGK::ORBIT::move
-PUBLIC	__real@3eb0c6f7a0000000
-PUBLIC	__real@3f800000
-PUBLIC	__real@4000000000000000
+PUBLIC	?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MMP6AXMPEAX@Z@Z ; XGK::ORBIT::move
 PUBLIC	__real@447a0000
 EXTRN	?copy@MAT4@DATA@XGK@@YAXPEAX0@Z:PROC		; XGK::DATA::MAT4::copy
 EXTRN	?ident@MAT4@DATA@XGK@@YAXPEAX@Z:PROC		; XGK::DATA::MAT4::ident
 EXTRN	?init@OBJECT@XGK@@YAXPEAUObject@2@@Z:PROC	; XGK::OBJECT::init
 EXTRN	?postRotX@OBJECT@XGK@@YAXPEAUObject@2@M@Z:PROC	; XGK::OBJECT::postRotX
+EXTRN	?preRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z:PROC	; XGK::OBJECT::preRotY
 EXTRN	?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z:PROC	; XGK::OBJECT::update2
 EXTRN	?setTransition2@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@MP6AXMPEAX@Z@Z:PROC ; XGK::TIME::setTransition2
-EXTRN	pow:PROC
 EXTRN	?invns@MAT4@DATA@XGK@@3P6AXPEAX@ZEA:QWORD	; XGK::DATA::MAT4::invns
 EXTRN	_fltused:DWORD
 ;	COMDAT pdata
@@ -38,31 +33,18 @@ $pdata$?update@ORBIT@XGK@@YAXPEAUOrbit@2@@Z DD imagerel $LN4
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$?test@ORBIT@XGK@@YAXMPEAX@Z DD imagerel $LN11
-	DD	imagerel $LN11+147
-	DD	imagerel $unwind$?test@ORBIT@XGK@@YAXMPEAX@Z
+$pdata$?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z DD imagerel $LN4
+	DD	imagerel $LN4+72
+	DD	imagerel $unwind$?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z
 pdata	ENDS
 ;	COMDAT __real@447a0000
 CONST	SEGMENT
 __real@447a0000 DD 0447a0000r			; 1000
 CONST	ENDS
-;	COMDAT __real@4000000000000000
-CONST	SEGMENT
-__real@4000000000000000 DQ 04000000000000000r	; 2
-CONST	ENDS
-;	COMDAT __real@3f800000
-CONST	SEGMENT
-__real@3f800000 DD 03f800000r			; 1
-CONST	ENDS
-;	COMDAT __real@3eb0c6f7a0000000
-CONST	SEGMENT
-__real@3eb0c6f7a0000000 DQ 03eb0c6f7a0000000r	; 1e-06
-CONST	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$?test@ORBIT@XGK@@YAXMPEAX@Z DD 041d01H
-	DD	02681dH
-	DD	030025206H
+$unwind$?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z DD 020601H
+	DD	030023206H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -75,101 +57,55 @@ $unwind$?init@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUObject@2@PEAUTransition@2@@Z DD 0206
 	DD	030023206H
 xdata	ENDS
 ; Function compile flags: /Ogtpy
-;	COMDAT ?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MM@Z
+;	COMDAT ?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MMP6AXMPEAX@Z@Z
 _TEXT	SEGMENT
 orbit_addr$ = 8
 time$ = 16
 movement_x$ = 24
 movement_y$ = 32
-?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MM@Z PROC	; XGK::ORBIT::move, COMDAT
+test$ = 40
+?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MMP6AXMPEAX@Z@Z PROC ; XGK::ORBIT::move, COMDAT
 ; File E:\reps\denis-belov\xgk\src\orbit\orbit.cpp
-; Line 71
-	movss	xmm2, DWORD PTR __real@447a0000
-	lea	r9, OFFSET FLAT:?test@ORBIT@XGK@@YAXMPEAX@Z ; XGK::ORBIT::test
-	mov	rax, rdx
-	mov	DWORD PTR [rcx+144], 897988541		; 358637bdH
+; Line 68
+	mov	rax, QWORD PTR [rcx+128]
+	mov	r8, rdx
+; Line 70
 	mov	rdx, QWORD PTR [rcx+136]
-	mov	DWORD PTR [rcx+148], 897988541		; 358637bdH
-	mov	rcx, rax
+	mov	r9, QWORD PTR test$[rsp]
+	movss	xmm2, DWORD PTR __real@447a0000
+	movups	xmm0, XMMWORD PTR [rax+64]
+	movups	XMMWORD PTR [rcx+160], xmm0
+	mov	rcx, r8
 	jmp	?setTransition2@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@MP6AXMPEAX@Z@Z ; XGK::TIME::setTransition2
-?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MM@Z ENDP	; XGK::ORBIT::move
-_TEXT	ENDS
-; Function compile flags: /Ogtpy
-;	COMDAT ??$pow@MNX@@YANMN@Z
-_TEXT	SEGMENT
-_Left$ = 8
-_Right$ = 16
-??$pow@MNX@@YANMN@Z PROC				; pow<float,double,void>, COMDAT
-; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtgmath.h
-; Line 53
-	cvtss2sd xmm0, xmm0
-	jmp	pow
-??$pow@MNX@@YANMN@Z ENDP				; pow<float,double,void>
-_TEXT	ENDS
-; Function compile flags: /Ogtpy
-;	COMDAT ?test@ORBIT@XGK@@YAXMPEAX@Z
-_TEXT	SEGMENT
-interpolation$ = 64
-additional$ = 72
-?test@ORBIT@XGK@@YAXMPEAX@Z PROC			; XGK::ORBIT::test, COMDAT
-; File E:\reps\denis-belov\xgk\src\orbit\orbit.cpp
-; Line 48
-$LN11:
-	push	rbx
-	sub	rsp, 48					; 00000030H
-; Line 42
-	movss	xmm1, DWORD PTR [rdx+144]
-; Line 48
-	mov	rbx, rdx
-; Line 42
-	mov	rcx, QWORD PTR [rdx+128]
-	movaps	XMMWORD PTR [rsp+32], xmm6
-; Line 48
-	movaps	xmm6, xmm0
-; Line 42
-	call	?postRotX@OBJECT@XGK@@YAXPEAUObject@2@M@Z ; XGK::OBJECT::postRotX
-; Line 32
-	mov	rcx, QWORD PTR [rbx+128]
-	call	?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z	; XGK::OBJECT::update2
-; Line 34
-	mov	rcx, QWORD PTR [rbx+128]
-	call	QWORD PTR ?invns@MAT4@DATA@XGK@@3P6AXPEAX@ZEA ; XGK::DATA::MAT4::invns
-; Line 35
-	mov	rdx, QWORD PTR [rbx+128]
-	mov	rcx, rbx
-	call	?copy@MAT4@DATA@XGK@@YAXPEAX0@Z		; XGK::DATA::MAT4::copy
-; Line 55
-	movss	xmm1, DWORD PTR __real@3f800000
-	subss	xmm1, xmm6
-; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtgmath.h
-; Line 53
-	cvtps2pd xmm0, xmm1
-	movsd	xmm1, QWORD PTR __real@4000000000000000
-	call	pow
-; File E:\reps\denis-belov\xgk\src\orbit\orbit.cpp
-; Line 55
-	mulsd	xmm0, QWORD PTR __real@3eb0c6f7a0000000
-	xorps	xmm1, xmm1
-; Line 59
-	movaps	xmm6, XMMWORD PTR [rsp+32]
-	cvtsd2ss xmm1, xmm0
-	movss	DWORD PTR [rbx+144], xmm1
-	movss	DWORD PTR [rbx+148], xmm1
-	add	rsp, 48					; 00000030H
-	pop	rbx
-	ret	0
-?test@ORBIT@XGK@@YAXMPEAX@Z ENDP			; XGK::ORBIT::test
+?move@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUTime@2@MMP6AXMPEAX@Z@Z ENDP ; XGK::ORBIT::move
 _TEXT	ENDS
 ; Function compile flags: /Ogtpy
 ;	COMDAT ?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z
 _TEXT	SEGMENT
-orbit_addr$ = 8
+orbit_addr$ = 48
 ?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z PROC		; XGK::ORBIT::rotate, COMDAT
 ; File E:\reps\denis-belov\xgk\src\orbit\orbit.cpp
-; Line 42
+; Line 41
+$LN4:
+	push	rbx
+	sub	rsp, 32					; 00000020H
+; Line 43
+	mov	rax, QWORD PTR [rcx+128]
+	mov	rbx, rcx
+	movups	xmm0, XMMWORD PTR [rcx+160]
+	movups	XMMWORD PTR [rax+64], xmm0
+; Line 45
 	movss	xmm1, DWORD PTR [rcx+144]
 	mov	rcx, QWORD PTR [rcx+128]
-	jmp	?postRotX@OBJECT@XGK@@YAXPEAUObject@2@M@Z ; XGK::OBJECT::postRotX
+	call	?postRotX@OBJECT@XGK@@YAXPEAUObject@2@M@Z ; XGK::OBJECT::postRotX
+; Line 46
+	movss	xmm1, DWORD PTR [rbx+148]
+	mov	rcx, QWORD PTR [rbx+128]
+; Line 47
+	add	rsp, 32					; 00000020H
+	pop	rbx
+; Line 46
+	jmp	?preRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z ; XGK::OBJECT::preRotY
 ?rotate@ORBIT@XGK@@YAXPEAUOrbit@2@@Z ENDP		; XGK::ORBIT::rotate
 _TEXT	ENDS
 ; Function compile flags: /Ogtpy
@@ -178,24 +114,24 @@ _TEXT	SEGMENT
 orbit_addr$ = 48
 ?update@ORBIT@XGK@@YAXPEAUOrbit@2@@Z PROC		; XGK::ORBIT::update, COMDAT
 ; File E:\reps\denis-belov\xgk\src\orbit\orbit.cpp
-; Line 30
+; Line 31
 $LN4:
 	push	rbx
 	sub	rsp, 32					; 00000020H
 	mov	rbx, rcx
-; Line 32
+; Line 33
 	mov	rcx, QWORD PTR [rcx+128]
 	call	?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z	; XGK::OBJECT::update2
-; Line 34
+; Line 35
 	mov	rcx, QWORD PTR [rbx+128]
 	call	QWORD PTR ?invns@MAT4@DATA@XGK@@3P6AXPEAX@ZEA ; XGK::DATA::MAT4::invns
-; Line 35
+; Line 36
 	mov	rdx, QWORD PTR [rbx+128]
 	mov	rcx, rbx
-; Line 36
+; Line 37
 	add	rsp, 32					; 00000020H
 	pop	rbx
-; Line 35
+; Line 36
 	jmp	?copy@MAT4@DATA@XGK@@YAXPEAX0@Z		; XGK::DATA::MAT4::copy
 ?update@ORBIT@XGK@@YAXPEAUOrbit@2@@Z ENDP		; XGK::ORBIT::update
 _TEXT	ENDS
@@ -207,28 +143,26 @@ object_addr$ = 56
 transition_addr$ = 64
 ?init@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUObject@2@PEAUTransition@2@@Z PROC ; XGK::ORBIT::init, COMDAT
 ; File E:\reps\denis-belov\xgk\src\orbit\orbit.cpp
-; Line 15
+; Line 16
 $LN4:
 	push	rbx
 	sub	rsp, 32					; 00000020H
-; Line 17
-	xor	eax, eax
-; Line 19
+; Line 18
 	mov	QWORD PTR [rcx+128], rdx
-	mov	QWORD PTR [rcx+144], rax
-	mov	rbx, rcx
-; Line 20
-	mov	QWORD PTR [rcx+136], r8
 ; Line 21
+	xor	eax, eax
+	mov	QWORD PTR [rcx+136], r8
+	mov	rbx, rcx
 	mov	QWORD PTR [r8+24], rcx
-; Line 23
+	mov	QWORD PTR [rcx+144], rax
+; Line 24
 	call	?ident@MAT4@DATA@XGK@@YAXPEAX@Z		; XGK::DATA::MAT4::ident
-; Line 25
-	mov	rcx, QWORD PTR [rbx+128]
 ; Line 26
+	mov	rcx, QWORD PTR [rbx+128]
+; Line 27
 	add	rsp, 32					; 00000020H
 	pop	rbx
-; Line 25
+; Line 26
 	jmp	?init@OBJECT@XGK@@YAXPEAUObject@2@@Z	; XGK::OBJECT::init
 ?init@ORBIT@XGK@@YAXPEAUOrbit@2@PEAUObject@2@PEAUTransition@2@@Z ENDP ; XGK::ORBIT::init
 _TEXT	ENDS

@@ -1442,41 +1442,41 @@ time$ = 48
 freq$2 = 56
 ?getFrameTime@TIME@XGK@@YAXPEAUTime@2@@Z PROC		; XGK::TIME::getFrameTime, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 203
+; Line 165
 $LN8:
 	push	rbx
 	sub	rsp, 32					; 00000020H
 	mov	rbx, rcx
-; Line 18
+; Line 19
 	lea	rcx, QWORD PTR freq$2[rsp]
 	call	QWORD PTR __imp_QueryPerformanceFrequency
 	test	eax, eax
 	jne	SHORT $LN4@getFrameTi
 	xorps	xmm1, xmm1
-; Line 20
+; Line 21
 	jmp	SHORT $LN3@getFrameTi
 $LN4@getFrameTi:
-; Line 23
+; Line 24
 	lea	rcx, QWORD PTR time$1[rsp]
 	call	QWORD PTR __imp_QueryPerformanceCounter
 	xorps	xmm1, xmm1
 	test	eax, eax
 	je	SHORT $LN3@getFrameTi
-; Line 28
+; Line 29
 	cvtsi2ss xmm1, QWORD PTR time$1[rsp]
 	xorps	xmm0, xmm0
 	cvtsi2ss xmm0, QWORD PTR freq$2[rsp]
 	divss	xmm1, xmm0
 $LN3@getFrameTi:
-; Line 205
+; Line 167
 	mulss	xmm1, DWORD PTR __real@447a0000
-; Line 207
+; Line 169
 	movaps	xmm0, xmm1
 	subss	xmm0, DWORD PTR [rbx+32]
-; Line 208
+; Line 170
 	movss	DWORD PTR [rbx+32], xmm1
 	movss	DWORD PTR [rbx+36], xmm0
-; Line 209
+; Line 171
 	add	rsp, 32					; 00000020H
 	pop	rbx
 	ret	0
@@ -1488,12 +1488,12 @@ _TEXT	SEGMENT
 time$ = 96
 ?updateTransitions@TIME@XGK@@YAXPEAUTime@2@@Z PROC	; XGK::TIME::updateTransitions, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 189
+; Line 155
 $LN21:
 	mov	QWORD PTR [rsp+16], rbx
 	push	rsi
 	sub	rsp, 80					; 00000050H
-; Line 193
+; Line 157
 	xor	esi, esi
 	mov	rbx, rcx
 	mov	QWORD PTR [rcx+48], rsi
@@ -1508,9 +1508,9 @@ $LN21:
 	xorps	xmm8, xmm8
 	npad	5
 $LL4@updateTran:
-; Line 197
+; Line 159
 	mov	rdi, QWORD PTR [rcx+rax*8]
-; Line 165
+; Line 135
 	movss	xmm6, DWORD PTR [rdi+4]
 	movaps	xmm7, xmm6
 	divss	xmm7, DWORD PTR [rdi+12]
@@ -1518,28 +1518,28 @@ $LL4@updateTran:
 ; Line 102
 	movaps	xmm0, xmm7
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 165
+; Line 135
 	movss	DWORD PTR [rdi+8], xmm7
 ; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\cmath
 ; Line 102
 	call	floorf
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 169
+; Line 139
 	ucomiss	xmm0, xmm8
 	jp	SHORT $LN18@updateTran
 	jne	SHORT $LN18@updateTran
-; Line 177
+; Line 147
 	addss	xmm6, DWORD PTR [rbx+36]
-; Line 181
+; Line 149
 	mov	rdx, QWORD PTR [rdi+24]
 	movaps	xmm0, xmm7
 	movss	DWORD PTR [rdi+4], xmm6
 	call	QWORD PTR [rdi+32]
 	jmp	SHORT $LN2@updateTran
 $LN18@updateTran:
-; Line 59
+; Line 60
 	mov	BYTE PTR [rdi], sil
-; Line 61
+; Line 62
 	dec	QWORD PTR [rbx+40]
 	mov	rdx, QWORD PTR [rbx+24]
 	mov	rcx, QWORD PTR [rbx+48]
@@ -1547,16 +1547,16 @@ $LN18@updateTran:
 	mov	rax, QWORD PTR [rdx+rax*8]
 	mov	QWORD PTR [rdx+rcx*8], rax
 	dec	QWORD PTR [rbx+48]
-; Line 62
+; Line 63
 	mov	rcx, QWORD PTR [rbx+40]
 	mov	rax, QWORD PTR [rbx+24]
 	mov	QWORD PTR [rax+rcx*8], rsi
-; Line 173
+; Line 143
 	mov	rdx, QWORD PTR [rdi+24]
 	movss	xmm0, DWORD PTR [rdi+8]
 	call	QWORD PTR [rdi+40]
 $LN2@updateTran:
-; Line 193
+; Line 157
 	mov	rax, QWORD PTR [rbx+48]
 	inc	rax
 	mov	QWORD PTR [rbx+48], rax
@@ -1568,7 +1568,7 @@ $LN2@updateTran:
 	movaps	xmm6, XMMWORD PTR [rsp+64]
 	mov	rdi, QWORD PTR [rsp+96]
 $LN3@updateTran:
-; Line 199
+; Line 161
 	mov	rbx, QWORD PTR [rsp+104]
 	add	rsp, 80					; 00000050H
 	pop	rsi
@@ -1582,14 +1582,14 @@ time$ = 80
 transition$ = 88
 ?updateTransition@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@@Z PROC ; XGK::TIME::updateTransition, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 161
+; Line 133
 $LN12:
 	mov	QWORD PTR [rsp+8], rbx
 	push	rdi
 	sub	rsp, 64					; 00000040H
 	movaps	XMMWORD PTR [rsp+48], xmm6
 	mov	rbx, rdx
-; Line 165
+; Line 135
 	movss	xmm6, DWORD PTR [rdx+4]
 	mov	rdi, rcx
 	movaps	XMMWORD PTR [rsp+32], xmm7
@@ -1599,29 +1599,29 @@ $LN12:
 ; Line 102
 	movaps	xmm0, xmm7
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 165
+; Line 135
 	movss	DWORD PTR [rdx+8], xmm7
 ; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\cmath
 ; Line 102
 	call	floorf
 	xorps	xmm1, xmm1
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 169
+; Line 139
 	ucomiss	xmm0, xmm1
 	jp	SHORT $LN9@updateTran
 	jne	SHORT $LN9@updateTran
-; Line 177
+; Line 147
 	addss	xmm6, DWORD PTR [rdi+36]
-; Line 181
+; Line 149
 	mov	rdx, QWORD PTR [rbx+24]
 	movaps	xmm0, xmm7
 	movss	DWORD PTR [rbx+4], xmm6
 	call	QWORD PTR [rbx+32]
 	jmp	SHORT $LN3@updateTran
 $LN9@updateTran:
-; Line 59
+; Line 60
 	mov	BYTE PTR [rbx], 0
-; Line 61
+; Line 62
 	dec	QWORD PTR [rdi+40]
 	mov	rdx, QWORD PTR [rdi+24]
 	mov	rcx, QWORD PTR [rdi+48]
@@ -1629,16 +1629,16 @@ $LN9@updateTran:
 	mov	rax, QWORD PTR [rdx+rax*8]
 	mov	QWORD PTR [rdx+rcx*8], rax
 	dec	QWORD PTR [rdi+48]
-; Line 62
+; Line 63
 	mov	rcx, QWORD PTR [rdi+40]
 	mov	rax, QWORD PTR [rdi+24]
 	mov	QWORD PTR [rax+rcx*8], 0
-; Line 173
+; Line 143
 	mov	rdx, QWORD PTR [rbx+24]
 	movss	xmm0, DWORD PTR [rbx+8]
 	call	QWORD PTR [rbx+40]
 $LN3@updateTran:
-; Line 185
+; Line 151
 	mov	rbx, QWORD PTR [rsp+80]
 	movaps	xmm6, XMMWORD PTR [rsp+48]
 	movaps	xmm7, XMMWORD PTR [rsp+32]
@@ -1656,45 +1656,45 @@ duration$ = 24
 process_callback$ = 32
 ?setTransition2@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@MP6AXMPEAX@Z@Z PROC ; XGK::TIME::setTransition2, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 73
+; Line 76
 	cmp	BYTE PTR [rdx], 0
-; Line 113
+; Line 116
 	mov	r11, rcx
-; Line 73
+; Line 76
 	je	SHORT $LN4@setTransit
-; Line 75
+; Line 78
 	mov	BYTE PTR [rdx], 0
-; Line 77
+; Line 80
 	dec	QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [rcx+40]
 	mov	r10, QWORD PTR [rcx+24]
 	mov	r8, QWORD PTR [rdx+16]
 	mov	rax, QWORD PTR [r10+rax*8]
 	mov	QWORD PTR [r10+r8*8], rax
-; Line 78
+; Line 81
 	mov	rcx, QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [r11+24]
 	mov	QWORD PTR [rax+rcx*8], 0
 $LN4@setTransit:
-; Line 122
+; Line 121
 	movss	DWORD PTR [rdx+12], xmm2
-; Line 124
+; Line 123
 	lea	rax, OFFSET FLAT:?idle_function@XGK@@YAXMPEAX@Z ; XGK::idle_function
 	mov	QWORD PTR [rdx+40], rax
-; Line 125
+; Line 124
 	mov	QWORD PTR [rdx+4], 0
 	mov	QWORD PTR [rdx+32], r9
-; Line 126
+; Line 125
 	mov	BYTE PTR [rdx], 1
-; Line 127
+; Line 126
 	mov	rax, QWORD PTR [r11+40]
 	mov	QWORD PTR [rdx+16], rax
-; Line 131
+; Line 128
 	mov	rcx, QWORD PTR [r11+40]
 	mov	rax, QWORD PTR [r11+24]
 	mov	QWORD PTR [rax+rcx*8], rdx
 	inc	QWORD PTR [r11+40]
-; Line 136
+; Line 129
 	ret	0
 ?setTransition2@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@MP6AXMPEAX@Z@Z ENDP ; XGK::TIME::setTransition2
 _TEXT	ENDS
@@ -1708,44 +1708,44 @@ process_callback$ = 32
 end_callback$ = 40
 ?setTransition@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@MP6AXMPEAX@Z3@Z PROC ; XGK::TIME::setTransition, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 73
+; Line 76
 	cmp	BYTE PTR [rdx], 0
-; Line 90
+; Line 93
 	mov	r11, rcx
-; Line 73
+; Line 76
 	je	SHORT $LN4@setTransit
-; Line 75
+; Line 78
 	mov	BYTE PTR [rdx], 0
-; Line 77
+; Line 80
 	dec	QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [rcx+40]
 	mov	r10, QWORD PTR [rcx+24]
 	mov	r8, QWORD PTR [rdx+16]
 	mov	rax, QWORD PTR [r10+rax*8]
 	mov	QWORD PTR [r10+r8*8], rax
-; Line 78
+; Line 81
 	mov	rcx, QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [r11+24]
 	mov	QWORD PTR [rax+rcx*8], 0
 $LN4@setTransit:
-; Line 97
+; Line 100
 	mov	rax, QWORD PTR end_callback$[rsp]
 	mov	QWORD PTR [rdx+40], rax
 	movss	DWORD PTR [rdx+12], xmm2
-; Line 98
+; Line 101
 	mov	QWORD PTR [rdx+4], 0
 	mov	QWORD PTR [rdx+32], r9
-; Line 99
+; Line 102
 	mov	BYTE PTR [rdx], 1
-; Line 100
+; Line 103
 	mov	rax, QWORD PTR [r11+40]
 	mov	QWORD PTR [rdx+16], rax
-; Line 102
+; Line 105
 	mov	rcx, QWORD PTR [r11+40]
 	mov	rax, QWORD PTR [r11+24]
 	mov	QWORD PTR [rax+rcx*8], rdx
 	inc	QWORD PTR [r11+40]
-; Line 103
+; Line 106
 	ret	0
 ?setTransition@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@MP6AXMPEAX@Z3@Z ENDP ; XGK::TIME::setTransition
 _TEXT	ENDS
@@ -1756,24 +1756,24 @@ time$ = 8
 transition$ = 16
 ?cancelTransition2@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@@Z PROC ; XGK::TIME::cancelTransition2, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 73
+; Line 76
 	cmp	BYTE PTR [rdx], 0
 	je	SHORT $LN2@cancelTran
-; Line 75
+; Line 78
 	mov	BYTE PTR [rdx], 0
-; Line 77
+; Line 80
 	dec	QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [rcx+40]
 	mov	r8, QWORD PTR [rcx+24]
 	mov	rdx, QWORD PTR [rdx+16]
 	mov	rax, QWORD PTR [r8+rax*8]
 	mov	QWORD PTR [r8+rdx*8], rax
-; Line 78
+; Line 81
 	mov	rdx, QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [rcx+24]
 	mov	QWORD PTR [rax+rdx*8], 0
 $LN2@cancelTran:
-; Line 80
+; Line 83
 	ret	0
 ?cancelTransition2@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@@Z ENDP ; XGK::TIME::cancelTransition2
 _TEXT	ENDS
@@ -1784,21 +1784,21 @@ time$ = 8
 transition$ = 16
 ?cancelTransition@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@@Z PROC ; XGK::TIME::cancelTransition, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 59
+; Line 60
 	mov	BYTE PTR [rdx], 0
-; Line 61
+; Line 62
 	dec	QWORD PTR [rcx+40]
 	mov	rdx, QWORD PTR [rcx+48]
 	mov	rax, QWORD PTR [rcx+40]
 	mov	r8, QWORD PTR [rcx+24]
 	mov	rax, QWORD PTR [r8+rax*8]
 	mov	QWORD PTR [r8+rdx*8], rax
-; Line 62
+; Line 63
 	mov	rdx, QWORD PTR [rcx+40]
 	mov	rax, QWORD PTR [rcx+24]
 	dec	QWORD PTR [rcx+48]
 	mov	QWORD PTR [rax+rdx*8], 0
-; Line 64
+; Line 69
 	ret	0
 ?cancelTransition@TIME@XGK@@YAXPEAUTime@2@PEAUTransition@2@@Z ENDP ; XGK::TIME::cancelTransition
 _TEXT	ENDS
@@ -1812,7 +1812,7 @@ freq$3 = 56
 stack_max_size$ = 56
 ?init@TIME@XGK@@YAXPEAUTime@2@_K@Z PROC			; XGK::TIME::init, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 41
+; Line 42
 $LN25:
 	mov	QWORD PTR [rsp+24], rbx
 	mov	QWORD PTR [rsp+32], rsi
@@ -1820,35 +1820,35 @@ $LN25:
 	sub	rsp, 32					; 00000020H
 	mov	rdi, rcx
 	mov	rbx, rdx
-; Line 18
+; Line 19
 	lea	rcx, QWORD PTR freq$3[rsp]
 	call	QWORD PTR __imp_QueryPerformanceFrequency
 	test	eax, eax
 	jne	SHORT $LN4@init
 	xorps	xmm1, xmm1
-; Line 20
+; Line 21
 	jmp	SHORT $LN3@init
 $LN4@init:
-; Line 23
+; Line 24
 	lea	rcx, QWORD PTR time$2[rsp]
 	call	QWORD PTR __imp_QueryPerformanceCounter
 	xorps	xmm1, xmm1
 	test	eax, eax
 	je	SHORT $LN3@init
-; Line 28
+; Line 29
 	cvtsi2ss xmm1, QWORD PTR time$2[rsp]
 	xorps	xmm0, xmm0
 	cvtsi2ss xmm0, QWORD PTR freq$3[rsp]
 	divss	xmm1, xmm0
 $LN3@init:
-; Line 43
-	mulss	xmm1, DWORD PTR __real@447a0000
 ; Line 44
+	mulss	xmm1, DWORD PTR __real@447a0000
+; Line 45
 	xor	eax, eax
 	mov	DWORD PTR [rdi+36], eax
-; Line 45
-	mov	QWORD PTR [rdi+40], rax
 ; Line 46
+	mov	QWORD PTR [rdi+40], rax
+; Line 47
 	mov	QWORD PTR [rdi+48], rax
 	movss	DWORD PTR [rdi+32], xmm1
 ; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\vector
@@ -1870,7 +1870,7 @@ $LN3@init:
 	mov	QWORD PTR [rdi+8], rax
 $LN22@init:
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 50
+; Line 51
 	mov	QWORD PTR [rdi+24], rdx
 	mov	rbx, QWORD PTR [rsp+64]
 	mov	rsi, QWORD PTR [rsp+72]
@@ -1894,10 +1894,10 @@ $LN10@init:
 	mov	rcx, rdi
 	call	??$_Resize_reallocate@U_Value_init_tag@std@@@?$vector@PEAUTransition@XGK@@V?$allocator@PEAUTransition@XGK@@@std@@@std@@AEAAX_KAEBU_Value_init_tag@1@@Z ; std::vector<XGK::Transition *,std::allocator<XGK::Transition *> >::_Resize_reallocate<std::_Value_init_tag>
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 49
+; Line 50
 	mov	rax, QWORD PTR [rdi]
 	mov	QWORD PTR [rdi+24], rax
-; Line 50
+; Line 51
 	mov	rbx, QWORD PTR [rsp+64]
 	mov	rsi, QWORD PTR [rsp+72]
 	add	rsp, 32					; 00000020H
@@ -1919,17 +1919,17 @@ $LN12@init:
 ; Line 1915
 	lea	rax, QWORD PTR [rbx+rsi]
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 50
+; Line 51
 	mov	rbx, QWORD PTR [rsp+64]
 	mov	rsi, QWORD PTR [rsp+72]
 ; File C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\vector
 ; Line 1183
 	mov	QWORD PTR [rdi+8], rax
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 49
+; Line 50
 	mov	rax, QWORD PTR [rdi]
 	mov	QWORD PTR [rdi+24], rax
-; Line 50
+; Line 51
 	add	rsp, 32					; 00000020H
 	pop	rdi
 	ret	0
@@ -1942,7 +1942,7 @@ __formal$ = 8
 __formal$ = 16
 ?idle_function@XGK@@YAXMPEAX@Z PROC			; XGK::idle_function, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 35
+; Line 36
 	ret	0
 ?idle_function@XGK@@YAXMPEAX@Z ENDP			; XGK::idle_function
 _TEXT	ENDS
@@ -1953,26 +1953,26 @@ time$ = 48
 freq$ = 56
 ?getWallTime@@YAMXZ PROC				; getWallTime, COMDAT
 ; File E:\reps\denis-belov\xgk\src\time\time.cpp
-; Line 13
+; Line 14
 $LN7:
 	sub	rsp, 40					; 00000028H
-; Line 18
+; Line 19
 	lea	rcx, QWORD PTR freq$[rsp]
 	call	QWORD PTR __imp_QueryPerformanceFrequency
 	test	eax, eax
 	je	SHORT $LN5@getWallTim
-; Line 23
+; Line 24
 	lea	rcx, QWORD PTR time$[rsp]
 	call	QWORD PTR __imp_QueryPerformanceCounter
 	test	eax, eax
 	je	SHORT $LN5@getWallTim
-; Line 28
+; Line 29
 	xorps	xmm0, xmm0
 	xorps	xmm1, xmm1
 	cvtsi2ss xmm0, QWORD PTR time$[rsp]
 	cvtsi2ss xmm1, QWORD PTR freq$[rsp]
 	divss	xmm0, xmm1
-; Line 29
+; Line 30
 	add	rsp, 40					; 00000028H
 	ret	0
 $LN5@getWallTim:

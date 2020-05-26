@@ -44,11 +44,9 @@ namespace XGK {
       DATA::QUAT::preRotX(&object_addr->quat, angle);
     };
 
-
     void postRotX(Object* object_addr, const float angle) {
 
       DATA::QUAT::postRotX(&object_addr->quat, angle);
-      // DATA::QUAT::normalize(&object_addr->quat);
     };
 
 
@@ -139,6 +137,7 @@ namespace XGK {
 
     void update (Object* object_addr) {
 
+      XGK::DATA::QUAT::norm(&object_addr->quat);
       DATA::MAT4::makeRotQuat(object_addr,  &object_addr->quat);
       DATA::MAT4::preTrans(object_addr, &object_addr->trans);
       // DATA::MAT4::premul(object_addr, &object_addr->parent);
@@ -146,6 +145,7 @@ namespace XGK {
 
     void update2 (Object* object_addr) {
 
+      XGK::DATA::QUAT::norm(&object_addr->quat);
       DATA::MAT4::makeTrans(object_addr, &object_addr->trans);
       DATA::MAT4::preRotQuat(object_addr,  &object_addr->quat);
       // DATA::MAT4::premul(object_addr, &object_addr->parent);

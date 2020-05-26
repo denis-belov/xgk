@@ -34,6 +34,7 @@ PUBLIC	__real@bf800000
 EXTRN	?copy@VEC4@DATA@XGK@@YAXPEAX0@Z:PROC		; XGK::DATA::VEC4::copy
 EXTRN	?reset@VEC4@DATA@XGK@@YAXPEAX@Z:PROC		; XGK::DATA::VEC4::reset
 EXTRN	?ident@QUAT@DATA@XGK@@YAXPEAX@Z:PROC		; XGK::DATA::QUAT::ident
+EXTRN	?norm@QUAT@DATA@XGK@@YAXPEAX@Z:PROC		; XGK::DATA::QUAT::norm
 EXTRN	?ident@MAT4@DATA@XGK@@YAXPEAX@Z:PROC		; XGK::DATA::MAT4::ident
 EXTRN	?add@VEC4@DATA@XGK@@3P6AXPEAX0@ZEA:QWORD	; XGK::DATA::VEC4::add
 EXTRN	?muls@VEC4@DATA@XGK@@3P6AXPEAXM@ZEA:QWORD	; XGK::DATA::VEC4::muls
@@ -71,13 +72,13 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$?update@OBJECT@XGK@@YAXPEAUObject@2@@Z DD imagerel $LN4
-	DD	imagerel $LN4+38
+	DD	imagerel $LN4+59
 	DD	imagerel $unwind$?update@OBJECT@XGK@@YAXPEAUObject@2@@Z
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z DD imagerel $LN4
-	DD	imagerel $LN4+38
+	DD	imagerel $LN4+59
 	DD	imagerel $unwind$?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z
 pdata	ENDS
 ;	COMDAT pdata
@@ -102,13 +103,15 @@ $unwind$?update3@OBJECT@XGK@@YAXPEAUObject@2@@Z DD 040a01H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z DD 020601H
-	DD	030023206H
+$unwind$?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z DD 040a01H
+	DD	06340aH
+	DD	07006320aH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$?update@OBJECT@XGK@@YAXPEAUObject@2@@Z DD 020601H
-	DD	030023206H
+$unwind$?update@OBJECT@XGK@@YAXPEAUObject@2@@Z DD 040a01H
+	DD	06340aH
+	DD	07006320aH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -164,20 +167,26 @@ _TEXT	SEGMENT
 object_addr$ = 48
 ?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z PROC		; XGK::OBJECT::update2, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 147
+; Line 146
 $LN4:
-	push	rbx
+	mov	QWORD PTR [rsp+8], rbx
+	push	rdi
 	sub	rsp, 32					; 00000020H
+	mov	rdi, rcx
+; Line 148
+	add	rcx, 64					; 00000040H
+	call	?norm@QUAT@DATA@XGK@@YAXPEAX@Z		; XGK::DATA::QUAT::norm
 ; Line 149
-	lea	rdx, QWORD PTR [rcx+80]
-	mov	rbx, rcx
+	lea	rdx, QWORD PTR [rdi+80]
+	mov	rcx, rdi
 	call	QWORD PTR ?makeTrans@MAT4@DATA@XGK@@3P6AXPEAX0@ZEA ; XGK::DATA::MAT4::makeTrans
 ; Line 150
-	lea	rdx, QWORD PTR [rbx+64]
-	mov	rcx, rbx
+	lea	rdx, QWORD PTR [rdi+64]
+	mov	rcx, rdi
 ; Line 152
+	mov	rbx, QWORD PTR [rsp+48]
 	add	rsp, 32					; 00000020H
-	pop	rbx
+	pop	rdi
 ; Line 150
 	rex_jmp	QWORD PTR ?preRotQuat@MAT4@DATA@XGK@@3P6AXPEAX0@ZEA ; XGK::DATA::MAT4::preRotQuat
 ?update2@OBJECT@XGK@@YAXPEAUObject@2@@Z ENDP		; XGK::OBJECT::update2
@@ -188,21 +197,27 @@ _TEXT	SEGMENT
 object_addr$ = 48
 ?update@OBJECT@XGK@@YAXPEAUObject@2@@Z PROC		; XGK::OBJECT::update, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 140
+; Line 138
 $LN4:
-	push	rbx
+	mov	QWORD PTR [rsp+8], rbx
+	push	rdi
 	sub	rsp, 32					; 00000020H
-; Line 142
-	lea	rdx, QWORD PTR [rcx+64]
-	mov	rbx, rcx
+	mov	rdi, rcx
+; Line 140
+	add	rcx, 64					; 00000040H
+	call	?norm@QUAT@DATA@XGK@@YAXPEAX@Z		; XGK::DATA::QUAT::norm
+; Line 141
+	lea	rdx, QWORD PTR [rdi+64]
+	mov	rcx, rdi
 	call	QWORD PTR ?makeRotQuat@MAT4@DATA@XGK@@3P6AXPEAX0@ZEA ; XGK::DATA::MAT4::makeRotQuat
-; Line 143
-	lea	rdx, QWORD PTR [rbx+80]
-	mov	rcx, rbx
-; Line 145
+; Line 142
+	lea	rdx, QWORD PTR [rdi+80]
+	mov	rcx, rdi
+; Line 144
+	mov	rbx, QWORD PTR [rsp+48]
 	add	rsp, 32					; 00000020H
-	pop	rbx
-; Line 143
+	pop	rdi
+; Line 142
 	rex_jmp	QWORD PTR ?preTrans@MAT4@DATA@XGK@@3P6AXPEAX0@ZEA ; XGK::DATA::MAT4::preTrans
 ?update@OBJECT@XGK@@YAXPEAUObject@2@@Z ENDP		; XGK::OBJECT::update
 _TEXT	ENDS
@@ -213,10 +228,10 @@ object_addr$ = 8
 value$ = 16
 ?transZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::transZ, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 135
+; Line 133
 	addss	xmm1, DWORD PTR [rcx+88]
 	movss	DWORD PTR [rcx+88], xmm1
-; Line 136
+; Line 134
 	ret	0
 ?transZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::transZ
 _TEXT	ENDS
@@ -227,9 +242,9 @@ object_addr$ = 8
 value$ = 16
 ?setTransZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::setTransZ, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 130
+; Line 128
 	movss	DWORD PTR [rcx+88], xmm1
-; Line 131
+; Line 129
 	ret	0
 ?setTransZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::setTransZ
 _TEXT	ENDS
@@ -240,10 +255,10 @@ object_addr$ = 8
 value$ = 16
 ?transY@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::transY, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 123
+; Line 121
 	addss	xmm1, DWORD PTR [rcx+84]
 	movss	DWORD PTR [rcx+84], xmm1
-; Line 124
+; Line 122
 	ret	0
 ?transY@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::transY
 _TEXT	ENDS
@@ -254,9 +269,9 @@ object_addr$ = 8
 value$ = 16
 ?setTransY@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::setTransY, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 118
+; Line 116
 	movss	DWORD PTR [rcx+84], xmm1
-; Line 119
+; Line 117
 	ret	0
 ?setTransY@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::setTransY
 _TEXT	ENDS
@@ -267,10 +282,10 @@ object_addr$ = 8
 value$ = 16
 ?transX@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::transX, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 111
+; Line 109
 	addss	xmm1, DWORD PTR [rcx+80]
 	movss	DWORD PTR [rcx+80], xmm1
-; Line 112
+; Line 110
 	ret	0
 ?transX@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::transX
 _TEXT	ENDS
@@ -281,9 +296,9 @@ object_addr$ = 8
 value$ = 16
 ?setTransX@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::setTransX, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 106
+; Line 104
 	movss	DWORD PTR [rcx+80], xmm1
-; Line 107
+; Line 105
 	ret	0
 ?setTransX@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::setTransX
 _TEXT	ENDS
@@ -295,30 +310,30 @@ vector_addr$ = 72
 value$ = 80
 ?trans@OBJECT@XGK@@YAXPEAUObject@2@PEAXM@Z PROC		; XGK::OBJECT::trans, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 95
+; Line 93
 $LN4:
 	mov	QWORD PTR [rsp+8], rbx
 	push	rdi
 	sub	rsp, 48					; 00000030H
 	mov	rdi, rcx
 	movaps	XMMWORD PTR [rsp+32], xmm6
-; Line 97
+; Line 95
 	add	rcx, 112				; 00000070H
 	movaps	xmm6, xmm2
 	call	?copy@VEC4@DATA@XGK@@YAXPEAX0@Z		; XGK::DATA::VEC4::copy
-; Line 98
+; Line 96
 	movaps	xmm1, xmm6
 	lea	rcx, QWORD PTR [rdi+112]
 	call	QWORD PTR ?muls@VEC4@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::VEC4::muls
-; Line 99
+; Line 97
 	lea	rcx, QWORD PTR [rdi+80]
 	lea	rdx, QWORD PTR [rdi+112]
-; Line 100
+; Line 98
 	mov	rbx, QWORD PTR [rsp+64]
 	movaps	xmm6, XMMWORD PTR [rsp+32]
 	add	rsp, 48					; 00000030H
 	pop	rdi
-; Line 99
+; Line 97
 	rex_jmp	QWORD PTR ?add@VEC4@DATA@XGK@@3P6AXPEAX0@ZEA ; XGK::DATA::VEC4::add
 ?trans@OBJECT@XGK@@YAXPEAUObject@2@PEAXM@Z ENDP		; XGK::OBJECT::trans
 _TEXT	ENDS
@@ -329,7 +344,7 @@ object_addr$ = 8
 vector_addr$ = 16
 ?setTrans@OBJECT@XGK@@YAXPEAUObject@2@PEAX@Z PROC	; XGK::OBJECT::setTrans, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 92
+; Line 90
 	add	rcx, 80					; 00000050H
 	jmp	?copy@VEC4@DATA@XGK@@YAXPEAX0@Z		; XGK::DATA::VEC4::copy
 ?setTrans@OBJECT@XGK@@YAXPEAUObject@2@PEAX@Z ENDP	; XGK::OBJECT::setTrans
@@ -341,7 +356,7 @@ object_addr$ = 8
 angle$ = 16
 ?postRotZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::postRotZ, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 85
+; Line 83
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?postRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::postRotZ
 ?postRotZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::postRotZ
@@ -353,7 +368,7 @@ object_addr$ = 8
 angle$ = 16
 ?preRotZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::preRotZ, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 80
+; Line 78
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?preRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::preRotZ
 ?preRotZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::preRotZ
@@ -365,7 +380,7 @@ object_addr$ = 8
 angle$ = 16
 ?setRotZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::setRotZ, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 75
+; Line 73
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?makeRotZ@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::makeRotZ
 ?setRotZ@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::setRotZ
@@ -377,7 +392,7 @@ object_addr$ = 8
 angle$ = 16
 ?postRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::postRotY, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 68
+; Line 66
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?postRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::postRotY
 ?postRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::postRotY
@@ -389,7 +404,7 @@ object_addr$ = 8
 angle$ = 16
 ?preRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::preRotY, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 63
+; Line 61
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?preRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::preRotY
 ?preRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::preRotY
@@ -401,7 +416,7 @@ object_addr$ = 8
 angle$ = 16
 ?setRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::setRotY, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 58
+; Line 56
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?makeRotY@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::makeRotY
 ?setRotY@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::setRotY
@@ -413,7 +428,7 @@ object_addr$ = 8
 angle$ = 16
 ?postRotX@OBJECT@XGK@@YAXPEAUObject@2@M@Z PROC		; XGK::OBJECT::postRotX, COMDAT
 ; File E:\reps\denis-belov\xgk\src\object\object.cpp
-; Line 50
+; Line 49
 	add	rcx, 64					; 00000040H
 	rex_jmp	QWORD PTR ?postRotX@QUAT@DATA@XGK@@3P6AXPEAXM@ZEA ; XGK::DATA::QUAT::postRotX
 ?postRotX@OBJECT@XGK@@YAXPEAUObject@2@M@Z ENDP		; XGK::OBJECT::postRotX
