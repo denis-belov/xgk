@@ -500,6 +500,8 @@ namespace XGK {
             vkDestroySurfaceKHR(handle, surfaces[i], nullptr);
           }
 
+          surfaces.resize(0);
+
           #ifdef DEBUG
 
             XGK_VULKAN_MACRO_DESTROY_DEBUG_REPORT_CALLBACKS(handle);
@@ -1821,75 +1823,105 @@ namespace XGK {
           vkDestroyRenderPass(handle, render_passes[i], nullptr);
         }
 
+        render_passes.resize(0);
+
         for (uint64_t i = 0; i < swapchains.size(); i++) {
 
           vkDestroySwapchainKHR(handle, swapchains[i], nullptr);
         }
+
+        swapchains.resize(0);
 
         for (uint64_t i = 0; i < image_views.size(); i++) {
 
           vkDestroyImageView(handle, image_views[i], nullptr);
         }
 
+        image_views.resize(0);
+
         for (uint64_t i = 0; i < images.size(); i++) {
 
           vkDestroyImage(handle, images[i], nullptr);
         }
+
+        images.resize(0);
 
         for (uint64_t i = 0; i < memories.size(); i++) {
 
           vkFreeMemory(handle, memories[i], nullptr);
         }
 
+        memories.resize(0);
+
         for (uint64_t i = 0; i < framebuffers.size(); i++) {
 
           vkDestroyFramebuffer(handle, framebuffers[i], nullptr);
         }
+
+        framebuffers.resize(0);
 
         for (uint64_t i = 0; i < fences.size(); i++) {
 
           vkDestroyFence(handle, fences[i], nullptr);
         }
 
+        fences.resize(0);
+
         for (uint64_t i = 0; i < semaphores.size(); i++) {
 
           vkDestroySemaphore(handle, semaphores[i], nullptr);
         }
+
+        semaphores.resize(0);
 
         for (uint64_t i = 0; i < buffers.size(); i++) {
 
           vkDestroyBuffer(handle, buffers[i], nullptr);
         }
 
+        buffers.resize(0);
+
         for (uint64_t i = 0; i < descr_set_layouts.size(); i++) {
 
           vkDestroyDescriptorSetLayout(handle, descr_set_layouts[i], nullptr);
         }
+
+        descr_set_layouts.resize(0);
 
         for (uint64_t i = 0; i < ppl_layouts.size(); i++) {
 
           vkDestroyPipelineLayout(handle, ppl_layouts[i], nullptr);
         }
 
+        ppl_layouts.resize(0);
+
         for (uint64_t i = 0; i < descr_pools.size(); i++) {
 
           vkDestroyDescriptorPool(handle, descr_pools[i], nullptr);
         }
+
+        descr_pools.resize(0);
 
         for (uint64_t i = 0; i < shader_modules.size(); i++) {
 
           vkDestroyShaderModule(handle, shader_modules[i], nullptr);
         }
 
+        shader_modules.resize(0);
+
         for (uint64_t i = 0; i < pipelines.size(); i++) {
 
           vkDestroyPipeline(handle, pipelines[i], nullptr);
         }
 
+        pipelines.resize(0);
+
         for (uint64_t i = 0; i < cmd_pools.size(); i++) {
 
           vkDestroyCommandPool(handle, cmd_pools[i], nullptr);
         }
+
+        cmd_pools.resize(0);
 
         vkDestroyDevice(handle, nullptr);
       };
