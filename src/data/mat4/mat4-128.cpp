@@ -12,7 +12,7 @@
   matrix_addr_float[2] = e2; matrix_addr_float[6] = e6; matrix_addr_float[10] = e10; matrix_addr_float[14] = e14;\
   matrix_addr_float[3] = e3; matrix_addr_float[7] = e7; matrix_addr_float[11] = e11; matrix_addr_float[15] = e15;
 
-     
+
 
 #define MUL(dst_matrix_addr_m128, left_matrix_addr_float, right_matrix_addr_float)\
   \
@@ -236,7 +236,7 @@
 
 
 #include <cstdint>
-#include <string>
+#include <string.h>
 #include <cmath>
 #include <immintrin.h>
 

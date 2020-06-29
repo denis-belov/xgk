@@ -103,7 +103,7 @@
 
 
 #include <cstdint>
-#include <string>
+#include <string.h>
 #include <cmath>
 
 

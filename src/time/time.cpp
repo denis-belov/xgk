@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cstdint>
-#include <Windows.h>
+// #include <Windows.h>
+#include <chrono>
 #include "time.h"
 
 // #include <iostream>
@@ -164,9 +165,10 @@ namespace XGK {
 
     void getFrameTime (Time* time) {
 
-      float program_time = getWallTime() * 1000.0f;
+      float program_time = std::chrono::high_resolution_clock::now();
 
-      time->frame_time = program_time - time->last_frame_time;
+      // time->frame_time = program_time - time->last_frame_time;
+      time->frame_time = std::chrono::duration_cast<std::chrono::microseconds>(program_time - time->last_frame_time).count();
       time->last_frame_time = program_time;
     };
   };

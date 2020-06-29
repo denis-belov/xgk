@@ -2,7 +2,8 @@
 // Data should be aligned with 16-byte alignment for better performance.
 
 #include <cstdint>
-#include <string>
+#include <string.h>
+#include <cstdio>
 
 
 

@@ -1,7 +1,7 @@
 DIR=E:/reps/denis-belov/xgk
 SRC=$(DIR)/src
 BUILD=$(DIR)/build-win-x64
-COMP_ARGS=/c /EHsc /MD /MP999 /O2 /IE:/reps/denis-belov/xgk/src /DMEM_ADDR_LENGTH=8 /DXGK_NO_INLINE=1
+COMP_ARGS=/c /EHsc /MD /MP999 /O2 /I$(SRC) /DMEM_ADDR_LENGTH=8 /DXGK_NO_INLINE=1
 
 
 
